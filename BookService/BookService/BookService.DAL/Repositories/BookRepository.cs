@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using BookService.DAL.DbAccess;
 using BookService.DAL.Entities;
 using BookService.DAL.Interfaces;
@@ -14,34 +14,41 @@ public class BookRepository : IBookRepository
         _dbContext = dbContext;
     }
 
-    public IEnumerable<Book> GetAll()
+    public async Task<IEnumerable<Book>> GetAllAsync()
     {
-        var books = _dbContext.Books.ToList();
+        var books = await _dbContext.Books.ToListAsync();
         return books;
     }
 
-    public Book? GetById(int id)
+    public async Task<Book?> GetByIdAsync(int id)
     {
-        return _dbContext.Books.FirstOrDefault(x => x.Id == id);
+        return await _dbContext.Books.FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public Book Create(Book book)
+    public async Task<Book> CreateAsync(Book book)
     {
-        var createdEntity = _dbContext.Books.Add(book);
-        _dbContext.SaveChanges();
+        var createdEntity = await _dbContext.Books.AddAsync(book);
+        await _dbContext.SaveChangesAsync();
         return createdEntity.Entity;
     }
 
-    public Book Update(Book book)
+    public async Task<Book> UpdateAsync(Book book)
     {
-        var updatedEntity = _dbContext.Books.Update(book);
-        _dbContext.SaveChanges();
-        return updatedEntity.Entity;
+        var entity = await _dbContext.Books.FirstAsync(b => b.Id == book.Id);
+
+        entity.Author = book.Author;
+        entity.Description = book.Description;
+        entity.Title = book.Title;
+
+        await _dbContext.SaveChangesAsync();
+
+        return entity;
     }
 
-    public void Delete(Book book)
+    public async Task DeleteAsync(Book book)
     {
-        _dbContext.Books.Remove(book);
-        _dbContext.SaveChanges();
+        var existingEntity = await _dbContext.Books.FirstOrDefaultAsync(b => b.Id == book.Id);
+        _dbContext.Books.Remove(existingEntity);
+        await _dbContext.SaveChangesAsync();
     }
 }

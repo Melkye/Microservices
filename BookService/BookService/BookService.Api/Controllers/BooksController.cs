@@ -10,7 +10,7 @@ namespace BookService.Api.Controllers;
 [Route("/books")]
 public class BooksController : ControllerBase
 {
-    private readonly IBookOrchestrator _bookService;
+    private readonly IBookOrchestrator _bookOrchestrator;
     private readonly IMapper _mapper;
     private readonly ILogger<BooksController> _logger;
 
@@ -19,52 +19,52 @@ public class BooksController : ControllerBase
         IMapper mapper,
         ILogger<BooksController> logger)
     {
-        _bookService = bookService;
+        _bookOrchestrator = bookService;
         _mapper = mapper;
         _logger = logger;
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<GetBook>> GetAll()
+    public async Task<IActionResult> GetAllAsync()
     {
-        var books = _bookService.GetAll();
+        var books = await _bookOrchestrator.GetAllAsync();
 
         return Ok(books);
     }
 
     [HttpGet("{id}")]
-    public ActionResult<GetBook> GetById(int id)
+    public async Task<IActionResult> GetByIdAsync(int id)
     {
-        var book = _bookService.GetById(id);
+        var book = await _bookOrchestrator.GetByIdAsync(id);
 
         return Ok(book);
     }
 
     [HttpPost]
-    public ActionResult<GetBook> Post(CreateBook bookModel)
+    public async Task<IActionResult> PostAsync(CreateBook bookModel)
     {
         var bookDto = _mapper.Map<BookDto>(bookModel);
 
-        var createdBook = _bookService.Create(bookDto);
+        var createdBook = await _bookOrchestrator.CreateAsync(bookDto);
 
         return Ok(createdBook);
     }
 
     [HttpPut("{id}")]
-    public ActionResult<GetBook> Put(int id, UpdateBook bookModel)
+    public async Task<IActionResult> PutAsync(int id, UpdateBook bookModel)
     {
         var bookDto = _mapper.Map<BookDto>(bookModel);
         bookDto.Id = id;
 
-        var updatedBook = _bookService.Create(bookDto);
+        var updatedBook = await _bookOrchestrator.UpdateAsync(bookDto);
 
         return Ok(updatedBook);
     }
 
     [HttpDelete("{id}")]
-    public ActionResult Delete(int id)
+    public async Task<IActionResult> DeleteAsync(int id)
     {
-        _bookService.DeleteById(id);
+        await _bookOrchestrator.DeleteByIdAsync(id);
         return NoContent();
     }
 }

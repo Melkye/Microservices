@@ -17,16 +17,16 @@ public class BookOrchestrator : IBookOrchestrator
         _mapper = mapper;
     }
 
-    public IEnumerable<BookDto> GetAll()
+    public async Task<IEnumerable<BookDto>> GetAllAsync()
     {
-        var books = _bookRepository.GetAll();
+        var books = await _bookRepository.GetAllAsync();
         var bookDtos = _mapper.Map<IEnumerable<BookDto>>(books);
         return bookDtos;
     }
 
-    public BookDto GetById(int id)
+    public async Task<BookDto> GetByIdAsync(int id)
     {
-        var book = _bookRepository.GetById(id);
+        var book = await _bookRepository.GetByIdAsync(id);
 
         if (book == null)
         {
@@ -37,31 +37,32 @@ public class BookOrchestrator : IBookOrchestrator
         return bookDto;
     }
 
-    public BookDto Create(BookDto dto)
+    public async Task<BookDto> CreateAsync(BookDto dto)
     {
         var book = _mapper.Map<Book>(dto);
 
-        var createdBook = _bookRepository.Create(book);
+        var createdBook = await _bookRepository.CreateAsync(book);
 
         var createdDto = _mapper.Map<BookDto>(createdBook);
         return createdDto;
     }
 
-    public BookDto Update(BookDto dto)
+    public async Task<BookDto> UpdateAsync(BookDto dto)
     {
-        var existingBook = GetById(dto.Id); // throws exception unless found
+        var existingBook = await GetByIdAsync(dto.Id); // throws exception unless found
 
-        var existingBookDto = _mapper.Map<Book>(existingBook);
-        var updatedBook = _bookRepository.Update(existingBookDto);
+        //var existingBookDto = _mapper.Map<Book>(existingBook);
+        var bookToUpdate = _mapper.Map<Book>(dto);
+        var updatedBook = await _bookRepository.UpdateAsync(bookToUpdate);
 
         var updatedDto = _mapper.Map<BookDto>(updatedBook);
         return updatedDto;
     }
-    public void DeleteById(int id)
+    public async Task DeleteByIdAsync(int id)
     {
-        var bookDto = GetById(id); // throws exception unless found
+        var bookDto = await GetByIdAsync(id); // throws exception unless found
 
         var book = _mapper.Map<Book>(bookDto);
-        _bookRepository.Delete(book);
+        await _bookRepository.DeleteAsync(book);
     }
 }

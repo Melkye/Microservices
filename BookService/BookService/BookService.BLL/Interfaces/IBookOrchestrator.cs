@@ -1,11 +1,12 @@
 ﻿using BookService.BLL.Dtos;
+using BookService.DAL.Entities;
 
 namespace BookService.BLL.Interfaces;
 public interface IBookOrchestrator
 {
-    BookDto Create(BookDto dto);
-    void DeleteById(int id);
-    IEnumerable<BookDto> GetAll();
-    BookDto GetById(int id);
-    BookDto Update(BookDto dto);
+    Task<BookDto> CreateAsync(BookDto dto);
+    Task DeleteByIdAsync(int id);
+    Task<IEnumerable<BookDto>> GetAllAsync();
+    Task<BookDto> GetByIdAsync(int id);
+    Task<BookDto> UpdateAsync(BookDto dto);
 }
