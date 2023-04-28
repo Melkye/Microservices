@@ -1,16 +1,17 @@
-﻿using BookService.DAL.Entities;
+﻿using AutoMapper;
 using BookService.BLL.Dtos;
-using AutoMapper;
-using BookService.DAL.Interfaces;
+using BookService.BLL.Exceptions;
 using BookService.BLL.Interfaces;
+using BookService.DAL.Entities;
+using BookService.DAL.Interfaces;
 
-namespace BookService.BLL.Services;
-public class BookService : IBookService
+namespace BookService.BLL.Orchestrators;
+public class BookOrchestrator : IBookOrchestrator
 {
     private readonly IBookRepository _bookRepository;
     private readonly IMapper _mapper;
 
-    public BookService(IBookRepository bookRepository, IMapper mapper)
+    public BookOrchestrator(IBookRepository bookRepository, IMapper mapper)
     {
         _bookRepository = bookRepository;
         _mapper = mapper;
@@ -40,9 +41,9 @@ public class BookService : IBookService
     {
         var book = _mapper.Map<Book>(dto);
 
-        _bookRepository.Create(book);
+        var createdBook = _bookRepository.Create(book);
 
-        var createdDto = GetById(dto.Id);
+        var createdDto = _mapper.Map<BookDto>(createdBook);
         return createdDto;
     }
 
@@ -51,9 +52,9 @@ public class BookService : IBookService
         var existingBook = GetById(dto.Id); // throws exception unless found
 
         var existingBookDto = _mapper.Map<Book>(existingBook);
-        _bookRepository.Update(existingBookDto);
+        var updatedBook = _bookRepository.Update(existingBookDto);
 
-        var updatedDto = GetById(dto.Id);
+        var updatedDto = _mapper.Map<BookDto>(updatedBook);
         return updatedDto;
     }
     public void DeleteById(int id)

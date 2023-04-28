@@ -3,6 +3,7 @@ using System.Linq;
 using BookService.DAL.DbAccess;
 using BookService.DAL.Entities;
 using BookService.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookService.DAL.Repositories;
 public class BookRepository : IBookRepository
@@ -15,7 +16,8 @@ public class BookRepository : IBookRepository
 
     public IEnumerable<Book> GetAll()
     {
-        return _dbContext.Books.ToList();
+        var books = _dbContext.Books.ToList();
+        return books;
     }
 
     public Book? GetById(int id)
@@ -23,18 +25,23 @@ public class BookRepository : IBookRepository
         return _dbContext.Books.FirstOrDefault(x => x.Id == id);
     }
 
-    public void Create(Book book)
+    public Book Create(Book book)
     {
-        _dbContext.Books.Add(book);
+        var createdEntity = _dbContext.Books.Add(book);
+        _dbContext.SaveChanges();
+        return createdEntity.Entity;
     }
 
-    public void Update(Book book)
+    public Book Update(Book book)
     {
-        _dbContext.Books.Update(book);
+        var updatedEntity = _dbContext.Books.Update(book);
+        _dbContext.SaveChanges();
+        return updatedEntity.Entity;
     }
 
     public void Delete(Book book)
     {
         _dbContext.Books.Remove(book);
+        _dbContext.SaveChanges();
     }
 }

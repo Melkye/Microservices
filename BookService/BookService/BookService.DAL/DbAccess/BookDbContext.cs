@@ -7,7 +7,7 @@ public class BookDbContext : DbContext
 {
     public BookDbContext(DbContextOptions<BookDbContext> options) : base(options)
     {
-
+        Database.EnsureCreated(); // change later to migrations
     }
     public DbSet<Book> Books { get; set; }
 

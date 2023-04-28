@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using BookService.BLL.Dtos;
 using BookService.DAL.Entities;
 

@@ -1,7 +1,7 @@
 ﻿using BookService.BLL.Dtos;
 
 namespace BookService.BLL.Interfaces;
-public interface IBookService
+public interface IBookOrchestrator
 {
     BookDto Create(BookDto dto);
     void DeleteById(int id);
