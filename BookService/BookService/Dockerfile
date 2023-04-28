@@ -5,12 +5,12 @@ EXPOSE 433
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["BookService/BookService.Api/BookService.Api.csproj", "BookService.Api/"]
-COPY ["BookService/BookService.BLL/BookService.BLL.csproj", "BookService.BLL/"]
-COPY ["BookService/BookService.DAL/BookService.DAL.csproj", "BookService.DAL/"]
+COPY ["BookService.Api/BookService.Api.csproj", "BookService.Api/"]
+COPY ["BookService.BLL/BookService.BLL.csproj", "BookService.BLL/"]
+COPY ["BookService.DAL/BookService.DAL.csproj", "BookService.DAL/"]
 RUN dotnet restore "BookService.Api/BookService.Api.csproj"
-COPY . .
-WORKDIR "/BookService/BookService.Api"
+COPY . ./
+WORKDIR "/src/BookService.Api"
 RUN dotnet build "BookService.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish

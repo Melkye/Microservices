@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookService.DAL", "BookServ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookService.BLL", "BookService.BLL\BookService.BLL.csproj", "{D2DC7370-5EB6-4BF0-A786-565B34265A91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookService.API", "BookService.Api\BookService.API.csproj", "{BED064D5-167E-4C31-94E9-E22B13BFAC17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookService.Api", "BookService.Api\BookService.Api.csproj", "{BED064D5-167E-4C31-94E9-E22B13BFAC17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
