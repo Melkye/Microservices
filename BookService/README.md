@@ -28,11 +28,15 @@ minikube image load books-image:1.0
 ```
 
 ```shell
-kubectl apply -f k8s/namespace.yaml
+kubectl apply -f ../k8s/namespace.yaml
 ```
 
 ```shell
-kubectl apply -f k8s
+kubectl apply -f ../k8s
+```
+
+```shell
+minikube addons enable ingress
 ```
 
 ```shell
