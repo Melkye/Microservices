@@ -17,18 +17,22 @@ public class BookRepository : IBookRepository
     {
         return _dbContext.Books.ToList();
     }
-    public Book? Get(int id)
+
+    public Book? GetById(int id)
     {
         return _dbContext.Books.FirstOrDefault(x => x.Id == id);
     }
+
     public void Create(Book book)
     {
         _dbContext.Books.Add(book);
     }
+
     public void Update(Book book)
     {
         _dbContext.Books.Update(book);
     }
+
     public void Delete(Book book)
     {
         _dbContext.Books.Remove(book);
