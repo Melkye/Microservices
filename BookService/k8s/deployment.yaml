@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: books-deployment
+    namespace: bookshop
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: books
+    template:
+        metadata:
+            labels:
+                app: books
+        spec:
+            containers:
+            - name: books-container
+              image: books-image:1.0
+              imagePullPolicy: Never
+              ports:
+                - containerPort: 80
