@@ -14,25 +14,56 @@ Navigate to Dockerfile folder:
 cd BookService\BookService
 ```
 
-Run:
-```shell
-docker build -t books-image:1.0 .
-```
-
 ```shell
 minikube start
+```
+
+<details>
+<summary>Only in case you want to build an image locally </summary> 
+<br>
+
+Change image and pull policy in `deployment.yaml` from
+```
+containers:
+  - name: books-container
+    image: melkye/books-image:1.0
+    imagePullPolicy: IfNotPresent
+```
+
+to
+```
+containers:
+  - name: books-container
+    image: books-image:1.0
+    imagePullPolicy: Never
+```
+
+And build an image
+```shell
+docker build -t books-image:1.0 .
 ```
 
 ```shell
 minikube image load books-image:1.0
 ```
 
+> Here may also use `eval $(minikube docker-env)` and then `docker build -t books-image:1.0 .` 
+instead of creating an image outside of minikube and then loading it, but it did't work for me.
+
+</details>
+
 ```shell
-kubectl apply -f k8s/namespace.yaml
+kubectl apply -f ../k8s/namespace.yaml
+```
+> Due to use of `bookshop` namespace all commands like `kubectl get pod` 
+should be run with `-n bookshop` argument like `kubectl get pod -n bookshop`
+
+```shell
+kubectl apply -f ../k8s
 ```
 
 ```shell
-kubectl apply -f k8s
+minikube addons enable ingress
 ```
 
 ```shell

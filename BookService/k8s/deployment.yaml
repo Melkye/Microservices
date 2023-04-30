@@ -15,7 +15,7 @@ spec:
         spec:
             containers:
             - name: books-container
-              image: books-image:1.0
-              imagePullPolicy: Never
+              image: melkye/books-image:1.0
+              imagePullPolicy: IfNotPresent
               ports:
                 - containerPort: 80
