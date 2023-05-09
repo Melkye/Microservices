@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deployment
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: auth    
+  template:
+    metadata:
+      labels:
+        app: auth    
+    spec:
+      # initContainers:
+      #   - name: run-migrations
+      #     image: ashonuyak/microservices-migrations:latest
+      #     imagePullPolicy: Always
+      #     command: ["migrate", "-path", "/migrations", "-database",  "$(POSTGRESQL_URL)", "goto", "$(VERSION)"]
+      #     env:
+      #       - name: POSTGRESQL_URL
+      #         value: "postgres://postgres:postgres@postgres-auth:5432/postgres-auth?sslmode=disable"
+      #       - name: VERSION
+      #         value: "1682877802668"
+      containers:
+        - name: auth
+          image: ashonuyak/microservices:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: auth-config
+            - secretRef:
+                name: auth-secret

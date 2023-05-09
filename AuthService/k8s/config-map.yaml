@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-config
+data:
+  POSTGRES_DB: postgres-auth
+  POSTGRES_HOST: postgres
+  REDIS_DB: redis-auth
+  REDIS_HOST: redis
