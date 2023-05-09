@@ -17,7 +17,7 @@ import JwtAccessGuard from 'src/guards/jwt-access.guard';
 import AuthUser from 'src/decorators/auth-user.decorator';
 import { ConfigService } from '@nestjs/config';
 
-@Controller('auth')
+@Controller('/api/auth-service/auth')
 export default class AuthController {
   constructor(
     private readonly authService: AuthService,
@@ -37,20 +37,19 @@ export default class AuthController {
 
   @UseGuards(JwtAccessGuard)
   @Get('logout')
-  logOut(
-    @Headers() headers: { authorization: string },
-    @AuthUser() user: any,
-  ): void {
-    console.log(headers);
-    console.log(user);
-
-    // this.authService.logOut(param.all, headers.authorization.split(' ')[1]);
+  async logOut(@AuthUser() user: any): Promise<void> {
+    await this.authService.logOut(user.sub);
   }
 
-  // @Get('refresh')
-  // async refresh(
-  //   @Headers() headers: { authorization: string },
-  // ): Promise<Tokens> {
-  //   return this.authService.refreshTokens(headers.authorization.split(' ')[1]);
-  // }
+  @Get('refresh')
+  async refresh(
+    @Headers() headers: { authorization: string },
+  ): Promise<Tokens> {
+    return this.authService.refreshTokens(headers.authorization.split(' ')[1]);
+  }
+
+  @Get('ping')
+  ping(): string {
+    return 'Hey boy';
+  }
 }

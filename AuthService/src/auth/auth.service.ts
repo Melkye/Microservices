@@ -104,4 +104,24 @@ export default class AuthService {
 
     return tokens;
   }
+
+  async refreshTokens(refreshToken: string): Promise<Tokens> {
+    const { sub: userId } = await this.verifyRefreshToken(refreshToken);
+
+    if (!userId) throw new Error();
+
+    const oldRefreshToken = await this.authRepository.getToken(userId);
+
+    if (!oldRefreshToken) throw new Error();
+
+    const newTokens = await this.getTokens(userId);
+
+    await this.authRepository.saveToken(userId, newTokens.refreshToken);
+
+    return newTokens;
+  }
+
+  async logOut(userId: string) {
+    await this.authRepository.removeToken(userId);
+  }
 }

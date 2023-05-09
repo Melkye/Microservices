@@ -24,8 +24,8 @@ spec:
       #         value: "1682877802668"
       containers:
         - name: auth
-          image: ashonuyak/microservices:latest
-          imagePullPolicy: Always
+          image: auth:0.1
+          imagePullPolicy: Never
           ports:
             - containerPort: 80
           envFrom:

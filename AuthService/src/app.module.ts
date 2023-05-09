@@ -15,10 +15,10 @@ import { DatabaseConfig } from './config/database.config';
       isGlobal: true,
       load: [config],
     }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useClass: DatabaseConfig,
-    }),
+    // TypeOrmModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   useClass: DatabaseConfig,
+    // }),
     RedisModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
