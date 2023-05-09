@@ -6,7 +6,7 @@ export const config = () => ({
   },
   typeorm: {
     type: process.env.POSTGRES_TYPE || 'postgres',
-    host: process.env.POSTGRES_HOST || 'postgres-auth',
+    host: 'postgres-auth',
     port: Number(process.env.POSTGRES_PORT) || 5432,
     username: process.env.POSTGRES_USERNAME || 'postgres',
     password: process.env.POSTGRES_PASSWORD || 'postgres',
