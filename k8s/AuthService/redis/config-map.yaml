@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-config-auth
+  namespace: bookshop
+data:
+  REDIS_DB: redis-auth

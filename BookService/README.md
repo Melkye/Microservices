@@ -1,14 +1,7 @@
-# Microservices
+# Book service
 
-## App is a simple bookshop
+Exposes [http://localhost/books](http://localhost/books) endpoint
 
-It exposes 3 endpoints:
-
-[http://localhost/books](http://localhost/books)
-
-[http://localhost/auth](http://localhost/auth)
-
-[http://localhost/orders](http://localhost/orders)
 ## How to run it locally in kubernetes
 
 Install:
@@ -16,29 +9,28 @@ Install:
 2. [kubectl](https://kubernetes.io/docs/tasks/tools/)
 3. [minikube](https://minikube.sigs.k8s.io/docs/start/)
 
-Working directory should be `Microservices\`
-
+Working directory should be `Microservices\Bookservice`
 
 ```shell
 minikube start
 ```
 
 ```shell
-kubectl apply -f k8s/Common
+kubectl apply -f k8s/namespace.yaml
 ```
 > Due to use of `bookshop` namespace all commands like `kubectl get pod` 
 should be run with `-n bookshop` argument like `kubectl get pod -n bookshop`
 
-
 ```shell
-kubectl apply -f k8s/BookService/postgres
-kubectl apply -f k8s/BookService
+kubectl apply -f k8s
 ```
 
 ```shell
-kubectl apply -f k8s/AuthService/redis
-kubectl apply -f k8s/AuthService/postgres
-kubectl apply -f k8s/AuthService
+kubectl apply -f k8s/postgres
+```
+
+```shell
+minikube addons enable ingress
 ```
 
 ```shell
@@ -49,8 +41,7 @@ minikube addons enable ingress
 minikube tunnel
 ```
 
-<details> <summary> /books endpoint </summary>
-
+Now you should be able to make calls on [http://localhost/books](http://localhost/books) endpoint
 
 | Method  | Endpoint	 |
 |---------|--------------|
@@ -68,4 +59,3 @@ minikube tunnel
   "author": "string"
 }
 ```
-</details>

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-auth
+  namespace: bookshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-auth
+  template:
+    metadata:
+      labels:
+        app: postgres-auth
+    spec:
+      containers:
+        - name: postgres-auth
+          image: postgres:14.1-alpine3.15
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: postgres-config-auth
+            - secretRef:
+                name: postgres-secret-auth
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgredb-auth
+      volumes:
+        - name: postgredb-auth
+          persistentVolumeClaim:
+            claimName: postgres-volume-claim-auth
