@@ -15,7 +15,12 @@ spec:
         spec:
             containers:
             - name: books-container
-              image: melkye/books-image:1.0
+              image: melkye/books-image:2.0
               imagePullPolicy: IfNotPresent
+              envFrom:
+                - configMapRef:
+                    name: books-config
+                - secretRef:
+                    name: books-secret
               ports:
                 - containerPort: 80
