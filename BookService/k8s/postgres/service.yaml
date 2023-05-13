@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-books-service
+  namespace: bookshop
+  labels:
+    app: postgres-books
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: postgres-books
