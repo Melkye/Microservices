@@ -34,6 +34,10 @@ minikube addons enable ingress
 ```
 
 ```shell
+minikube addons enable ingress
+```
+
+```shell
 minikube tunnel
 ```
 
