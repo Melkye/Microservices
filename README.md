@@ -20,34 +20,11 @@ Working directory should be `Microservices\`
 
 
 ```shell
-minikube start
+./start.sh
 ```
 
-```shell
-kubectl apply -f k8s/Common
-```
 > Due to use of `bookshop` namespace all commands like `kubectl get pod` 
 should be run with `-n bookshop` argument like `kubectl get pod -n bookshop`
-
-
-```shell
-kubectl apply -f k8s/BookService/postgres
-kubectl apply -f k8s/BookService
-```
-
-```shell
-kubectl apply -f k8s/AuthService/redis
-kubectl apply -f k8s/AuthService/postgres
-kubectl apply -f k8s/AuthService
-```
-
-```shell
-minikube addons enable ingress
-```
-
-```shell
-minikube tunnel
-```
 
 <details> <summary> /books endpoint </summary>
 
@@ -66,6 +43,45 @@ minikube tunnel
   "title": "string",
   "description": "string",
   "author": "string"
+}
+```
+</details>
+
+<details> <summary> /auth endpoint </summary>
+
+
+| Method  | Endpoint	       | Description                        |
+|---------|------------------|------------------------------------|
+| POST    | /auth/sign-up    |       -                            |
+| POST    | /auth/sign-in    |       -                            |
+| GET     | /auth/logout     |       -                            |
+| GET     | /auth/refresh    | refresh tokens                     | 
+| GET     | /auth/user/\{id} | get user by id                     |
+| GET     | /auth/user/all   | get all users                      |
+| POST    | /auth/user       | create user (prefer using sign-up) |
+| PATCH   | /auth/user/\{id} | update user by id                  |
+| DELETE  | /auth/user/\{id} | delete user by id                  |
+
+#### Authorization header model
+```
+Bearer {token}
+```
+
+#### sign-up model
+```
+{
+  "email": "string",
+  "password": "string",
+  "firstName": "string",
+  "lastName": "string"
+}
+```
+
+#### sign-in model
+```
+{
+  "email": "string",
+  "password": "string"
 }
 ```
 </details>
