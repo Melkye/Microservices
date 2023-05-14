@@ -1,13 +1,17 @@
 import { JwtService } from '@nestjs/jwt';
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import SignUpDto from './dto/sign-up.dto';
-import SignInDto from './dto/sign-in.dto';
 import AuthRepository from './auth.repository';
 import UserService from 'src/user/user.service';
 import Tokens from './interfaces/tokens.interface';
 import BcryptService from 'src/bcrypt/bcrypt.service';
+import User from 'src/user/entities/user.entity';
 
 @Injectable()
 export default class AuthService {
@@ -62,14 +66,16 @@ export default class AuthService {
     return { accessToken, refreshToken };
   }
 
-  async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.userService.getByEmail(email);
+  async validateUser(email: string, password: string): Promise<User> {
+    const user = await this.userService.getOne({ email });
+
+    if (!user) throw new BadRequestException();
 
     const isValidPassword = await this.bcryptService.compare(
       password,
       user.password,
     );
-    if (!isValidPassword) throw new Error();
+    if (!isValidPassword) throw new BadRequestException();
 
     return user;
   }
@@ -89,15 +95,7 @@ export default class AuthService {
     return tokens;
   }
 
-  async signIn(dto: SignInDto): Promise<Tokens> {
-    const user = await this.userService.getByEmail(dto.email);
-
-    const isValidPassword = await this.bcryptService.compare(
-      dto.password,
-      user.password,
-    );
-    if (!isValidPassword) throw new Error();
-
+  async signIn(user: User): Promise<Tokens> {
     const tokens = await this.getTokens(user.id);
 
     await this.authRepository.saveToken(user.id, tokens.refreshToken);
@@ -108,11 +106,11 @@ export default class AuthService {
   async refreshTokens(refreshToken: string): Promise<Tokens> {
     const { sub: userId } = await this.verifyRefreshToken(refreshToken);
 
-    if (!userId) throw new Error();
+    if (!userId) throw new UnauthorizedException();
 
     const oldRefreshToken = await this.authRepository.getToken(userId);
 
-    if (!oldRefreshToken) throw new Error();
+    if (!oldRefreshToken) throw new UnauthorizedException();
 
     const newTokens = await this.getTokens(userId);
 
@@ -123,5 +121,9 @@ export default class AuthService {
 
   async logOut(userId: string) {
     await this.authRepository.removeToken(userId);
+  }
+
+  async getTokenByKey(key: string): Promise<string | null> {
+    return this.authRepository.getToken(key);
   }
 }

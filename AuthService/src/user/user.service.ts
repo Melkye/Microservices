@@ -15,15 +15,19 @@ export default class UserService {
     return this.userRepository.save(user);
   }
 
-  async updateByEmail(email: string, dto: UpdateUserDto): Promise<User> {
-    return this.userRepository.update({ email }, dto);
+  async updateOne(criteria: Partial<User>, dto: UpdateUserDto): Promise<User> {
+    return this.userRepository.update(criteria, dto);
   }
 
-  async deleteByEmail(email: string): Promise<User> {
-    return this.userRepository.delete({ email });
+  async deleteOne(criteria: Partial<User>): Promise<User> {
+    return this.userRepository.delete(criteria);
   }
 
-  async getByEmail(email: string): Promise<User> {
-    return this.userRepository.findOne({ email });
+  async getOne(criteria: Partial<User>): Promise<User> {
+    return this.userRepository.findOne(criteria);
+  }
+
+  async getAll(): Promise<User[]> {
+    return this.userRepository.find({});
   }
 }

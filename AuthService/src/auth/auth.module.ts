@@ -5,15 +5,9 @@ import UserModule from 'src/user/user.module';
 import AuthRepository from './auth.repository';
 import AuthController from './auth.controller';
 import BcryptModule from 'src/bcrypt/bcrypt.module';
-import { JwtModule, JwtService } from '@nestjs/jwt';
-import {
-  RedisManager,
-  RedisModule,
-  RedisService,
-} from '@liaoliaots/nestjs-redis';
+import { JwtModule } from '@nestjs/jwt';
 import JwtAccessStrategy from 'src/strategies/jwt-access.strategy';
 import LocalStrategy from 'src/strategies/local.strategy';
-import { Redis } from 'ioredis';
 import { jwt_constants } from './constants/jwt.contants';
 
 @Module({
