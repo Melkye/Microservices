@@ -6,6 +6,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 
 import AuthService from 'src/auth/auth.service';
 import SignInDto from 'src/auth/dto/sign-in.dto';
+import User from 'src/user/entities/user.entity';
 
 @Injectable()
 export default class LocalStrategy extends PassportStrategy(Strategy, 'local') {
@@ -21,7 +22,7 @@ export default class LocalStrategy extends PassportStrategy(Strategy, 'local') {
     req: ExpressRequest,
     email: string,
     password: string,
-  ): Promise<any> {
+  ): Promise<User> {
     const errors = await validate(new SignInDto(req.body));
 
     if (errors.length > 0) {

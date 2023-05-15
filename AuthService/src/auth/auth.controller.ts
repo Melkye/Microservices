@@ -3,26 +3,21 @@ import {
   Controller,
   Get,
   Headers,
-  Param,
   Post,
   UseGuards,
 } from '@nestjs/common';
 
 import AuthService from './auth.service';
-import SignInDto from './dto/sign-in.dto';
 import SignUpDto from './dto/sign-up.dto';
 import Tokens from './interfaces/tokens.interface';
 import LocalAuthGuard from 'src/guards/local-auth.guard';
 import JwtAccessGuard from 'src/guards/jwt-access.guard';
 import AuthUser from 'src/decorators/auth-user.decorator';
-import { ConfigService } from '@nestjs/config';
+import User from 'src/user/entities/user.entity';
 
-@Controller('/api/auth-service/auth')
+@Controller('auth')
 export default class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly configService: ConfigService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('sign-up')
   async signUp(@Body() dto: SignUpDto): Promise<Tokens> {
@@ -31,14 +26,14 @@ export default class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('sign-in')
-  async signIn(@Body() dto: SignInDto, @AuthUser() user: any): Promise<Tokens> {
-    return this.authService.signIn(dto);
+  async signIn(@AuthUser() user: User): Promise<Tokens> {
+    return this.authService.signIn(user);
   }
 
   @UseGuards(JwtAccessGuard)
   @Get('logout')
-  async logOut(@AuthUser() user: any): Promise<void> {
-    await this.authService.logOut(user.sub);
+  async logOut(@AuthUser() user: User): Promise<void> {
+    await this.authService.logOut(user.id);
   }
 
   @Get('refresh')
