@@ -1,4 +1,4 @@
-import User from 'src/user/entities/user.entity';
+import Credentials from 'src/credentials/entities/credentials.entity';
 
 export const config = () => ({
   api: {
@@ -12,7 +12,7 @@ export const config = () => ({
     password: process.env.POSTGRES_PASSWORD || 'postgres',
     database: process.env.POSTGRES_NAME || 'postgres-auth',
     logging: false,
-    entities: [User],
+    entities: [Credentials],
   },
   jwt: {
     access_secret: {
@@ -41,6 +41,16 @@ export const config = () => ({
       format: Number,
       default: 10,
       env: 'BCRYPT_SALT_ROUNDS',
+    },
+  },
+  services: {
+    userHost: {
+      format: String,
+      env: 'USER_SERVICE_SERVICE_HOST',
+    },
+    userPort: {
+      format: String,
+      env: 'USER_SERVICE_SERVICE_PORT',
     },
   },
   redis: {

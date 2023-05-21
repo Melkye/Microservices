@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-config
+  namespace: bookshop
+data:
+  POSTGRES_DB: postgres-user
+  POSTGRES_HOST: postgres
