@@ -13,17 +13,21 @@ import UpdateUserDto from './dto/update-user.dto';
 import UserService from './user.service';
 import AuthGuard from 'src/guards/auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiTags('user')
 @Controller('user')
 export default class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @ApiBearerAuth()
   @UseGuards(AuthGuard)
   @Get('all')
   async getAll(): Promise<User[] | null> {
     return this.userService.getAll();
   }
 
+  @ApiBearerAuth()
   @UseGuards(AuthGuard)
   @Get(':id')
   async getById(@Param('id') id: string): Promise<User | null> {
@@ -35,6 +39,7 @@ export default class UserController {
     return this.userService.create(body);
   }
 
+  @ApiBearerAuth()
   @UseGuards(AuthGuard)
   @Patch(':id')
   async update(
@@ -44,6 +49,7 @@ export default class UserController {
     return this.userService.updateOne({ id }, body);
   }
 
+  @ApiBearerAuth()
   @UseGuards(AuthGuard)
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<User> {
