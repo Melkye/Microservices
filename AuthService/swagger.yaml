@@ -1,0 +1,124 @@
+openapi: 3.0.0
+paths:
+  /auth/sign-up:
+    post:
+      operationId: AuthController_signUp
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUpDto'
+      responses:
+        '201':
+          description: ''
+      tags: &ref_0
+        - auth
+  /auth/sign-in:
+    post:
+      operationId: AuthController_signIn
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInDto'
+      responses:
+        '201':
+          description: ''
+      tags: *ref_0
+  /auth/logout:
+    get:
+      operationId: AuthController_logOut
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: *ref_0
+      security:
+        - bearer: []
+  /auth/refresh:
+    get:
+      operationId: AuthController_refresh
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: *ref_0
+      security:
+        - bearer: []
+  /auth/validate:
+    post:
+      operationId: AuthController_validate
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags: *ref_0
+  /auth/{email}:
+    delete:
+      operationId: AuthController_delete
+      parameters:
+        - name: email
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags: *ref_0
+  /auth/ping:
+    get:
+      operationId: AuthController_ping
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: *ref_0
+info:
+  title: Auth service
+  description: The auth service's API
+  version: '1.0'
+  contact: {}
+tags: []
+servers: []
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      in: header
+      type: http
+  schemas:
+    SignUpDto:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        age:
+          type: number
+        password:
+          type: string
+      required:
+        - firstName
+        - lastName
+        - email
+        - age
+        - password
+    SignInDto:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
