@@ -1,0 +1,27 @@
+selector:
+  app: books
+
+namespace: bookshop
+
+image:
+  name: melkye/books-image
+  tag: 2.0
+  #port: 8080
+
+service:
+  ports:
+    - port: 8080
+      targetPort: 80 
+
+ingress:
+  path: /books
+  port: 8080
+
+configs:
+  POSTGRES_DB: 
+  POSTGRES_HOST:
+
+secrets:
+  POSTGRES_USER: "ZGVtbw=="
+  POSTGRES_PASSWORD: "ZGVtbw=="
+    
