@@ -11,8 +11,8 @@ kind: ConfigMap
 metadata:
   name: {{ include "common.fullname" . }}-config
 data:
-    {{- range $key, $value := .Values.configs }}
-      {{ $key }}: {{ $value }}
-    {{- end }}
+  {{- range $key, $value := .Values.configs }}
+    {{ $key }}: "{{ $value }}"
+  {{- end }}
 {{- end -}}
 {{- end -}}

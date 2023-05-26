@@ -20,7 +20,7 @@ ingress:
 
 configs:
   POSTGRES_DB: "abuba"
-  POSTGRES_HOST: localv3-postgresql # postgres # todo update this
+  POSTGRES_HOST: localv5-postgresql # postgres # todo update this
   POSTGRES_PORT: "5432"
 
 secrets:

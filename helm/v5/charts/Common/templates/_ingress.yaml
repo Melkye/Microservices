@@ -10,9 +10,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ include "common.fullname" . }}
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
 spec:
+  ingressClassName: nginx
   rules:
     - http:
         paths:
@@ -22,6 +21,6 @@ spec:
               service:
                 name: {{ include "common.fullname" . }}
                 port:
-                  name: {{ .Values.ingress.port }}
+                  number: {{ .Values.ingress.port }}
 {{- end -}}
 {{- end -}}

@@ -2,11 +2,5 @@ dependencies:
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 12.5.4
-- name: common
-  repository: file://charts/common
-  version: 0.1.0
-- name: books-aoi
-  repository: file://charts/BookService
-  version: 0.1.0
-digest: sha256:024dd6261a2326047d47899805b3f66700c362fce17de3bcb4cb26bdbdddb24d
-generated: "2023-05-26T17:11:18.2562121+03:00"
+digest: sha256:c447adc7db1c9f7fcb6b9c11b9ca41284725c506cd9c86717467f0345ea6408f
+generated: "2023-05-26T18:10:33.7730731+03:00"
