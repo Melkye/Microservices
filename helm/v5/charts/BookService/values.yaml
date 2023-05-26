@@ -6,7 +6,6 @@ namespace: bookshop
 image:
   name: melkye/books-image
   tag: "2.1"
-  #port: 8080
 
 service:
   ports:
@@ -16,7 +15,7 @@ service:
 
 ingress:
   path: /books
-  port: 8080 # http
+  port: 8080
 
 configs:
   POSTGRES_DB: "abuba"
@@ -26,19 +25,3 @@ configs:
 secrets:
   POSTGRES_USER: "YWJ1YmE="
   POSTGRES_PASSWORD: "YWJ1YmE="
-
-# global:
-#   fullnameOverride: postgres
-#   postgresql:
-#     auth:
-#       postgresPassword: "adminabuba"
-#       username: "abuba"
-#       password: "abuba"
-#       database: "abuba"
-#     service:
-#       ports:
-#         postgresql: "5432" ###
-#   primary:
-#     persistence:
-#       size: 1Gi
-#       mountPath: /var/lib/postgresql/data

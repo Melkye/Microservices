@@ -8,16 +8,8 @@ global:
       database: "abuba"
     service:
       ports:
-        postgresql: "5432" ###
+        postgresql: "5432"
   primary:
     persistence:
-      size: 1Gi
+      size: 2Gi # TODO make this valuable
       mountPath: /var/lib/postgresql/data
-  # fullnameOverride: postgres
-  # # postgresqlDatabase: "demo"
-  # # postgresqlUsername: "demo"
-  # # postgresqlPassword: "demo"
-  # # postgresqlPostgresPassword: "demo"
-  # persistence:
-  #   size: 1Gi
-  #   mountPath: /var/lib/postgresql/data

@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: books-config
-  namespace: bookshop
-data:
-  POSTGRES_DB: postgres-books
-  POSTGRES_HOST: postgres-books-service
-  POSTGRES_PORT: "5432"
