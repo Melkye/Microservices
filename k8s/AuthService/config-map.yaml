@@ -4,7 +4,9 @@ metadata:
   name: auth-config
   namespace: bookshop
 data:
-  POSTGRES_DB: postgres-auth
-  POSTGRES_HOST: postgres
-  REDIS_DB: redis-auth
-  REDIS_HOST: redis
+  POSTGRES_TYPE: "postgres"
+  POSTGRES_HOST: "postgres-auth"
+  POSTGRES_PORT: "5432"
+  POSTGRES_NAME: "postgres-auth"
+  REDIS_HOST: "redis-auth"
+  REDIS_PORT: "6379"
