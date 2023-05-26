@@ -1,0 +1,37 @@
+#TODO change for auth service
+
+selector:
+  app: auth # TODO remove this or make use of
+
+namespace: bookshop
+
+image:
+  name: ashonuyak/microservices
+  tag: latest
+  #port: 8080
+
+service:
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 3000 
+
+ingress:
+  path: /api/auth-service
+  port: 8080 # http
+
+configs:
+  POSTGRES_DB: abuba
+  POSTGRES_HOST: postgres-auth # TODO change this #TODO decide whether to use one dbms
+  REDIS_DB: redis-auth
+  REDIS_HOST: redis
+
+secrets:
+  POSTGRES_USER: "YWJ1YmE="
+  POSTGRES_PASSWORD: "YWJ1YmE="
+  # POSTGRES_USER: "cG9zdGdyZXM="
+  # POSTGRES_PASSWORD: "cG9zdGdyZXM="
+  REDIS_USER: "YWJ1YmE="
+  REDIS_PASSWORD: "YWJ1YmE="
+
+  # TODO add lifecycle from deployment

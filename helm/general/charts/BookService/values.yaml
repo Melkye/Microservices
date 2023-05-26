@@ -1,0 +1,44 @@
+selector:
+  app: books # TODO remove this or make use of
+
+namespace: bookshop
+
+image:
+  name: melkye/books-image
+  tag: "2.1"
+
+service:
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 80 
+
+ingress:
+  path: /books
+  port: 8080 # http
+
+configs:
+  POSTGRES_DB: abuba
+  POSTGRES_HOST: postgres-auth # postgres # TODO update this
+  POSTGRES_PORT: "5432"
+
+secrets:
+  POSTGRES_USER: "YWJ1YmE="
+  POSTGRES_PASSWORD: "YWJ1YmE="
+
+# TODO remove commented code
+# global:
+#   fullnameOverride: postgres
+#   postgresql:
+#     auth:
+#       postgresPassword: "adminabuba"
+#       username: "abuba"
+#       password: "abuba"
+#       database: "abuba"
+#     service:
+#       ports:
+#         postgresql: "5432" ###
+#   primary:
+#     persistence:
+#       size: 1Gi
+#       mountPath: /var/lib/postgresql/data
