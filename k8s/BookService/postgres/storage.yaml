@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: postgres-volume-claim-books
-  namespace: bookshop
+  #namespace: bookshop
 spec:
   accessModes:
     - ReadWriteOnce
