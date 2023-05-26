@@ -1,7 +1,6 @@
 apiVersion: v2
 type: application
 version: 0.1.0
-name: common-chart
+name: common
 appVersion: "0.1"
 description: "demo"
-dependencies: []  

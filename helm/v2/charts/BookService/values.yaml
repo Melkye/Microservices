@@ -5,23 +5,24 @@ namespace: bookshop
 
 image:
   name: melkye/books-image
-  tag: 2.0
-  #port: 8080
+  tag: "2.1"
+  port: 8080
 
 service:
   ports:
-    - port: 8080
+    - name: http
+      port: 8080
       targetPort: 80 
 
 ingress:
   path: /books
-  port: 8080
+  port: 8080 # http
 
 configs:
-  POSTGRES_DB: 
-  POSTGRES_HOST:
+  POSTGRES_DB: "abuba"
+  POSTGRES_HOST: postgres-books-service
+  POSTGRES_PORT: "5432"
 
 secrets:
-  POSTGRES_USER: "ZGVtbw=="
-  POSTGRES_PASSWORD: "ZGVtbw=="
-    
+  POSTGRES_USER: "YWJ1YmE="
+  POSTGRES_PASSWORD: "YWJ1YmE="

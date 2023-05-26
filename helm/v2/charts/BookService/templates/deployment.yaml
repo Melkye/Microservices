@@ -1,27 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: {{ .Release.Name }}-{{ .Chart.Name }}
-    namespace: {{ .Values.namespace}}
+  name: {{ .Release.Name }}-{{ .Chart.Name }}
+  #namespace: {{ .Values.namespace }}
 spec:
-    replicas: 1
-    selector:
-        matchLabels:
-            {{ .Values.selector | toYaml }}
-    template:
-        metadata:
-            labels:
-                app: {{ .Release.Name }}-{{ .Chart.Name }}
-        spec:
-            containers:
-            - name: {{ .Release.Name }}-{{ .Chart.Name }}-container
-              image: {{ .Values.image.name }}:{{ .Values.image.tag }}
-              imagePullPolicy: IfNotPresent
-              envFrom:
-                - configMapRef:
-                    name: {{ .Release.Name }}-{{ .Chart.Name }}-config
-                - secretRef:
-                    name: {{ .Release.Name }}-{{ .Chart.Name }}-secret
-                {{- range .Values.service.ports }}
-                - containerPort: {{ .targetPort}}
-                {{- end }}
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-{{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Chart.Name }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-{{ .Chart.Name }}
+          image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-{{ .Chart.Name }}-config
+            - secretRef:
+                name: {{ .Release.Name }}-{{ .Chart.Name }}-secret
+          ports:
+            {{- range .Values.service.ports }}
+            - name: {{ .name }}
+              containerPort: {{ .targetPort }}
+              protocol: TCP
+            {{- end }}
