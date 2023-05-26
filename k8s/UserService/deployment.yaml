@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-deployment
+  namespace: bookshop
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: user    
+  template:
+    metadata:
+      labels:
+        app: user    
+    spec:
+      containers:
+        - name: user
+          image: ashonuyak/microservices-user:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3001
+          envFrom:
+            - configMapRef:
+                name: user-config
+            - secretRef:
+                name: user-secret
+          lifecycle:
+            postStart:
+              exec:
+                command: ["npm", "run", "typeorm", "--", "migration:run"]

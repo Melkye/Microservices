@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-user
+  namespace: bookshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-user
+  template:
+    metadata:
+      labels:
+        app: postgres-user
+    spec:
+      containers:
+        - name: postgres-user
+          image: postgres:14.1-alpine3.15
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: postgres-config-user
+            - secretRef:
+                name: postgres-secret-user
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgredb-user
+      volumes:
+        - name: postgredb-user
+          persistentVolumeClaim:
+            claimName: postgres-volume-claim-user

@@ -4,7 +4,7 @@ import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { config } from './config/config';
-import UserModule from './user/user.module';
+import UserModule from './credentials/credentials.module';
 import AuthModule from './auth/auth.module';
 import BcryptModule from './bcrypt/bcrypt.module';
 import { DatabaseConfig } from './config/database.config';

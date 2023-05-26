@@ -1,4 +1,11 @@
-import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export default class SignUpDto {
   constructor(partial: Partial<SignUpDto>) {
@@ -18,10 +25,12 @@ export default class SignUpDto {
   readonly lastName!: string;
 
   @IsNotEmpty()
-  @IsString()
-  @MinLength(1)
-  @MaxLength(128)
+  @IsEmail()
   readonly email!: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  readonly age!: number;
 
   @IsNotEmpty()
   @IsString()
