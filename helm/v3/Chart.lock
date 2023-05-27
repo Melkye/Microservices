@@ -1,7 +1,0 @@
-dependencies:
-- name: postgresql
-  namespace: bookshop
-  repository: https://charts.bitnami.com/bitnami
-  version: 12.5.4
-digest: sha256:c447adc7db1c9f7fcb6b9c11b9ca41284725c506cd9c86717467f0345ea6408f
-generated: "2023-05-23T17:41:12.6773493+03:00"

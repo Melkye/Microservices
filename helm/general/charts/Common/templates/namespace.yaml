@@ -1,5 +1,0 @@
-# TODO find out how to add deps into namespace or delete it
-# apiVersion: v1
-# kind: Namespace
-# metadata:
-#   name: bookshop
