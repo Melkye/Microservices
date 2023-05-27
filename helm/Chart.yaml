@@ -1,0 +1,19 @@
+apiVersion: v2
+type: application
+version: 0.1.0
+name: bookshop
+appVersion: "0.1"
+dependencies:
+- name: postgresql
+  version: 12.5.4
+  repository: https://charts.bitnami.com/bitnami
+- name: redis
+  version: 17.11.3
+  repository: https://charts.bitnami.com/bitnami
+
+# - name: common
+#   version: 0.1.0
+#   repository: file://charts/common
+# - name: books-api
+#   version: 0.1.0
+#   repository: file://charts/BookService

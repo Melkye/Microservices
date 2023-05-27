@@ -1,0 +1,46 @@
+postgresql:
+  fullnameOverride: postgres-db # TODO doesn't work ??? now wotks i guess
+  global:
+    postgresql:
+      auth:
+        postgresPassword: "adminabuba"
+        username: "abuba"
+        password: "abuba"
+        database: "abubadb"
+      service:
+        ports:
+          postgresql: "5432" ###
+  primary:
+    persistence:
+      size: 2Gi # TODO make this valuable UPD shifted from global, baybe works now
+      mountPath: /var/lib/postgresql/data
+  audit:
+    logConnections: true
+  
+redis:
+  #password: "abuba"
+  auth:
+    password: "redis"
+  master:
+    persistence:
+      size: 2Gi
+      path: /data
+    service:
+      ports:
+        redis: "6379"
+  replica:
+    replicaCount: 1
+  # TODO set count to 1 to reduce resource util, maybe need more replicas
+  # TODO remove namespace
+
+
+
+
+  # fullnameOverride: postgres
+  # # postgresqlDatabase: "demo"
+  # # postgresqlUsername: "demo"
+  # # postgresqlPassword: "demo"
+  # # postgresqlPostgresPassword: "demo"
+  # persistence:
+  #   size: 1Gi
+  #   mountPath: /var/lib/postgresql/data
