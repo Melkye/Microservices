@@ -33,14 +33,11 @@ redis:
   # TODO set count to 1 to reduce resource util, maybe need more replicas
   # TODO remove namespace
 
-
-
-
-  # fullnameOverride: postgres
-  # # postgresqlDatabase: "demo"
-  # # postgresqlUsername: "demo"
-  # # postgresqlPassword: "demo"
-  # # postgresqlPostgresPassword: "demo"
-  # persistence:
-  #   size: 1Gi
-  #   mountPath: /var/lib/postgresql/data
+kafka:
+  fullnameOverride: kafka       # ім'я сервісу (хост по якому можна звертатись до брокера)
+  numPartitions: 3              # кількість розділів визначає скільки консьюмерів може бути в топіка одночасно  
+  autoCreateTopicsEnable: false # заборонити автоматичне створення топіків, вони мають визначатись явно, в списку нижче
+  provisioning:
+    enabled: true               # при запуску будуть створені перелічені топіки
+    topics:
+     - name: demo
