@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Kafka, Consumer, Producer } from 'kafkajs';
 
 @Injectable()
@@ -7,9 +8,9 @@ export default class KafkaService {
   private producer: Producer;
   private consumer: Consumer;
 
-  constructor() {
+  constructor(private readonly configService: ConfigService) {
     this.kafka = new Kafka({
-      clientId: process.env.BOOKSHOP_USER_SERVICE_HOST,
+      clientId: configService.get('BOOKSHOP_USER_SERVICE_HOST'),
       brokers: ['localhost:9092'],
     });
 

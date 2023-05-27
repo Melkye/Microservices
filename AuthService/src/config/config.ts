@@ -80,4 +80,10 @@ export const config = () => ({
       env: 'REDIS_URL',
     },
   },
+  kafka: {
+    clientId: {
+      format: String,
+      env: 'BOOKSHOP_AUTH_SERVICE_HOST',
+    },
+  },
 });

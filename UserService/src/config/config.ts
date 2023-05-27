@@ -24,4 +24,10 @@ export const config = () => ({
       env: 'BOOKSHOP_AUTH_SERVICE_PORT',
     },
   },
+  kafka: {
+    clientId: {
+      format: String,
+      env: 'BOOKSHOP_USER_SERVICE_HOST',
+    },
+  },
 });
