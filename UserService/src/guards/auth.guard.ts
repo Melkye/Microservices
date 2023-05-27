@@ -20,9 +20,9 @@ export default class AuthGuard implements CanActivate {
       const response = await this.httpService
         .post(
           `http://${this.configService.get(
-            'AUTH_SERVICE_SERVICE_HOST',
+            'BOOKSHOP_AUTH_SERVICE_HOST',
           )}:${this.configService.get(
-            'AUTH_SERVICE_SERVICE_PORT',
+            'BOOKSHOP_AUTH_SERVICE_PORT',
           )}/auth/validate`,
           { token },
         )

@@ -9,7 +9,7 @@ export default class KafkaService {
 
   constructor() {
     this.kafka = new Kafka({
-      clientId: 'auth-service',
+      clientId: process.env.BOOKSHOP_AUTH_SERVICE_HOST,
       brokers: ['localhost:9092'],
     });
 
