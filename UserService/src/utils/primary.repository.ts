@@ -69,7 +69,8 @@ export default function PrimaryRepository<Entity>(
     }
 
     async save(newEntity: Partial<Entity>, em = getManager()): Promise<Entity> {
-      return em.save(newEntity as Entity).catch(() => {
+      return em.save(newEntity as Entity).catch((error) => {
+        console.error(error);
         throw new BadRequestException('User already exists');
       });
     }
