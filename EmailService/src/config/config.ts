@@ -16,4 +16,10 @@ export const config = () => ({
       env: 'EMAIL_FROM',
     },
   },
+  kafka: {
+    clientId: {
+      format: String,
+      env: 'BOOKSHOP_EMAIL_SERVICE_HOST',
+    },
+  },
 });

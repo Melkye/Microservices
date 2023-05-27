@@ -8,9 +8,9 @@ export const config = () => ({
     type: process.env.POSTGRES_TYPE,
     host: process.env.POSTGRES_HOST,
     port: Number(process.env.POSTGRES_PORT),
-    username: process.env.POSTGRES_USERNAME,
+    username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_NAME,
+    database: process.env.POSTGRES_DB,
     logging: false,
     entities: [Credentials],
   },
@@ -46,11 +46,11 @@ export const config = () => ({
   services: {
     userHost: {
       format: String,
-      env: 'USER_SERVICE_SERVICE_HOST',
+      env: 'BOOKSHOP_USER_SERVICE_HOST',
     },
     userPort: {
       format: String,
-      env: 'USER_SERVICE_SERVICE_PORT',
+      env: 'BOOKSHOP_USER_SERVICE_PORT',
     },
   },
   redis: {
@@ -78,6 +78,12 @@ export const config = () => ({
       format: String,
       default: 'redis://redis@redis-auth:6379',
       env: 'REDIS_URL',
+    },
+  },
+  kafka: {
+    clientId: {
+      format: String,
+      env: 'BOOKSHOP_AUTH_SERVICE_HOST',
     },
   },
 });

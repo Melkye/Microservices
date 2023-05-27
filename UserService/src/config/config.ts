@@ -8,20 +8,26 @@ export const config = () => ({
     type: process.env.POSTGRES_TYPE,
     host: process.env.POSTGRES_HOST,
     port: Number(process.env.POSTGRES_PORT),
-    username: process.env.POSTGRES_USERNAME,
+    username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_NAME,
+    database: process.env.POSTGRES_DB,
     logging: false,
     entities: [User],
   },
   services: {
     authHost: {
       format: String,
-      env: 'AUTH_SERVICE_SERVICE_HOST',
+      env: 'BOOKSHOP_AUTH_SERVICE_HOST',
     },
     authPort: {
       format: String,
-      env: 'AUTH_SERVICE_SERVICE_PORT',
+      env: 'BOOKSHOP_AUTH_SERVICE_PORT',
+    },
+  },
+  kafka: {
+    clientId: {
+      format: String,
+      env: 'BOOKSHOP_USER_SERVICE_HOST',
     },
   },
 });
