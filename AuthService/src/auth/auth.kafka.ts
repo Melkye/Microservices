@@ -11,7 +11,7 @@ export default class KafkaService {
   constructor(private readonly configService: ConfigService) {
     this.kafka = new Kafka({
       clientId: configService.get('BOOKSHOP_AUTH_SERVICE_HOST'),
-      brokers: ['localhost:9092'],
+      brokers: [configService.get('KAFKA_SERVICE_HOST') + ':' + configService.get('KAFKA_SERVICE_PORT')],
     });
 
     this.producer = this.kafka.producer();
