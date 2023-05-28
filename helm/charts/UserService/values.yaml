@@ -4,7 +4,7 @@ selector:
 namespace: bookshop
 
 image:
-  name: melkye/microservices-user # ashonuyak/microservices-user
+  name: ashonuyak/microservices-user
   tag: latest
 
 lifecycle:
@@ -34,5 +34,7 @@ secrets:
   POSTGRES_PASSWORD: "YWJ1YmE=" # "cG9zdGdyZXM="
 
   # user
-  # postgres://abuba:abuba@postgres:5432/user?sslmode=disable
-  POSTGRES_URL: "cG9zdGdyZXM6Ly9hYnViYTphYnViYUBwb3N0Z3Jlczo1NDMyL3VzZXI/c3NsbW9kZT1kaXNhYmxl"
+  # postgres://abuba:abuba@postgres-db:5432/user?sslmode=disable
+  POSTGRES_URL: "cG9zdGdyZXM6Ly9hYnViYTphYnViYUBwb3N0Z3Jlcy1kYjo1NDMyL3VzZXI/c3NsbW9kZT1kaXNhYmxl"
+  
+  # postgres://abuba:abuba@postgres-db:5432/user?sslmode=disable

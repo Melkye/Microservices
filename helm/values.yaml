@@ -3,7 +3,7 @@ postgresql:
   global:
     postgresql:
       auth:
-        postgresPassword: "adminabuba"
+        postgresPassword: "admin"
         username: "abuba"
         password: "abuba"
       service:
@@ -13,12 +13,13 @@ postgresql:
     persistence:
       size: 2Gi
       mountPath: /var/lib/postgresql/data
+    # TODO make dbs creation work
     initdb:
       scripts:
         init.sql: |
-          CREATE DATABASE books;
-          CREATE DATABASE auth;
-          CREATE DATABASE users;
+          CREATE DATABASE "auth" OWNER abuba;
+          CREATE DATABASE "books" OWNER abuba;
+          CREATE DATABASE "user" OWNER abuba;
   audit:
     logConnections: true
   
@@ -35,6 +36,8 @@ redis:
         redis: "6379"
   replica:
     replicaCount: 1
+    persistence:
+      size: 2Gi
   # TODO set count to 1 to reduce resource util, maybe need more replicas
   # TODO remove namespace
 
@@ -46,3 +49,5 @@ kafka:
     enabled: true               # при запуску будуть створені перелічені топіки
     topics:
      - name: demo
+  persistence:
+    size: 2Gi

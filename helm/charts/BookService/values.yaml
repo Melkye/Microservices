@@ -16,6 +16,7 @@ service:
 ingress:
   path: /books
   port: 8080
+
 configs:
   POSTGRES_DB: "books"
   POSTGRES_HOST: "postgres-db"
