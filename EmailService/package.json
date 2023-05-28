@@ -30,7 +30,8 @@
     "mailgun-js": "^0.22.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "webpack": "^5.84.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
