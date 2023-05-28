@@ -1,6 +1,6 @@
 replicaCount: 1
 
-nameOverride: "" # TODO really need this?
+nameOverride: ""
 
 image:
   name: ""

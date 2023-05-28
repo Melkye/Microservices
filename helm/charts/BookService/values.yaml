@@ -1,5 +1,5 @@
 selector:
-  app: books # TODO remove this or make use of
+  app: books # TODO make this work as in example (?)
 
 namespace: bookshop
 
@@ -15,30 +15,12 @@ service:
 
 ingress:
   path: /books
-  port: 8080 # http
-
+  port: 8080
 configs:
-  POSTGRES_DB: abubadb # TODO set different dbs
-  POSTGRES_HOST: postgres-db # TODO update this
+  POSTGRES_DB: "books"
+  POSTGRES_HOST: "postgres-db"
   POSTGRES_PORT: "5432"
 
 secrets:
   POSTGRES_USER: "YWJ1YmE="
   POSTGRES_PASSWORD: "YWJ1YmE="
-
-# TODO remove commented code
-# global:
-#   fullnameOverride: postgres
-#   postgresql:
-#     auth:
-#       postgresPassword: "adminabuba"
-#       username: "abuba"
-#       password: "abuba"
-#       database: "abuba"
-#     service:
-#       ports:
-#         postgresql: "5432" ###
-#   primary:
-#     persistence:
-#       size: 1Gi
-#       mountPath: /var/lib/postgresql/data

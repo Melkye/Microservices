@@ -1,24 +1,29 @@
 postgresql:
-  fullnameOverride: postgres-db # TODO doesn't work ??? now wotks i guess
+  fullnameOverride: postgres-db
   global:
     postgresql:
       auth:
         postgresPassword: "adminabuba"
         username: "abuba"
         password: "abuba"
-        database: "abubadb"
       service:
         ports:
-          postgresql: "5432" ###
+          postgresql: "5432"
   primary:
     persistence:
-      size: 2Gi # TODO make this valuable UPD shifted from global, baybe works now
+      size: 2Gi
       mountPath: /var/lib/postgresql/data
+    initdb:
+      scripts:
+        init.sql: |
+          CREATE DATABASE books;
+          CREATE DATABASE auth;
+          CREATE DATABASE users;
   audit:
     logConnections: true
   
 redis:
-  #password: "abuba"
+  #password: "abuba" try this in case auth.pass doesn't work
   auth:
     password: "redis"
   master:

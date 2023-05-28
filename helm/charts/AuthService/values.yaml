@@ -4,7 +4,7 @@ selector:
 namespace: bookshop
 
 image:
-  name: ashonuyak/microservices-auth
+  name: melkye/microservices-auth # ashonuyak/microservices-auth
   tag: latest
 
 lifecycle:
@@ -24,9 +24,9 @@ ingress:
 
 configs:
   POSTGRES_TYPE: "postgres"
-  POSTGRES_HOST: "postgres-db" # -auth #TODO decide whether to use one dbms
+  POSTGRES_HOST: "postgres-db"
   POSTGRES_PORT: "5432"
-  POSTGRES_NAME: "abubadb" #"postgres-auth" # TODO possible issue here # this is db name (?)
+  POSTGRES_DB: "auth"
 
   REDIS_HOST: "redis-auth"
   REDIS_PORT: "6379"
@@ -38,20 +38,12 @@ secrets:
   # shared
   POSTGRES_USER: "YWJ1YmE=" # "cG9zdGdyZXM="
   POSTGRES_PASSWORD: "YWJ1YmE=" # "cG9zdGdyZXM="
-
+  
   # auth
-  #postgres://abuba:abuba@postgres:5432/postgres-auth?sslmode=disable
-  #cG9zdGdyZXM6Ly9hYnViYTphYnViYUBwb3N0Z3Jlczo1NDMyL3Bvc3RncmVzLWF1dGg/c3NsbW9kZT1kaXNhYmxl
-
-  #postgres://abuba:abuba@postgres:5432/abubadb?sslmode=disable
-  POSTGRES_URL: "cG9zdGdyZXM6Ly9hYnViYTphYnViYUBwb3N0Z3Jlczo1NDMyL2FidWJhZGI/c3NsbW9kZT1kaXNhYmxl"
+  #postgres://abuba:abuba@postgres:5432/auth?sslmode=disable
+  POSTGRES_URL: "cG9zdGdyZXM6Ly9hYnViYTphYnViYUBwb3N0Z3Jlczo1NDMyL2F1dGg/c3NsbW9kZT1kaXNhYmxl"
 
   REDIS_USERNAME: "cmVkaXM="
   REDIS_PASSWORD: "cmVkaXM="
   # redis://redis-auth:6379
   REDIS_URL: "cmVkaXM6Ly9yZWRpcy1hdXRoOjYzNzk="
-
-  # exists due to inconsistency in variable names
-  POSTGRES_USERNAME: "YWJ1YmE=" # "cG9zdGdyZXM="
-
-  # TODO add lifecycle from deployment and remove from template (?)

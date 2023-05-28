@@ -4,7 +4,7 @@ selector:
 namespace: bookshop
 
 image:
-  name: ashonuyak/microservices-user
+  name: melkye/microservices-user # ashonuyak/microservices-user
   tag: latest
 
 lifecycle:
@@ -19,30 +19,20 @@ service:
       targetPort: 3001
 
 ingress:
-  path: /user # TODO maybe change to userS here or to user in other names
+  path: /user
   port: 8080
 
 configs:
   POSTGRES_TYPE: "postgres"
-  POSTGRES_HOST: "postgres-db" # -user
+  POSTGRES_HOST: "postgres-db"
   POSTGRES_PORT: "5432"
-  POSTGRES_NAME: "abubadb" # "postgres-user" # TODO possible issue here # this is db name (?)
-
-  # POSTGRES_DB: abuba
+  POSTGRES_DB: "user"
 
 secrets:
-  # shared
+  # shared # TODO try several connections simultaneously
   POSTGRES_USER: "YWJ1YmE=" # "cG9zdGdyZXM="
   POSTGRES_PASSWORD: "YWJ1YmE=" # "cG9zdGdyZXM="
 
   # user
-  #postgres://abuba:abuba@postgres:5432/postgres-user?sslmode=disable
-  #cG9zdGdyZXM6Ly9wb3N0Z3Jlczpwb3N0Z3Jlczo6cG9zdGdyZXMtdXNlcjo1NDMyL3Bvc3RncmVzLXVzZXI/c3NsbW9kZT1kaXNhYmxl
-
-  #postgres://abuba:abuba@postgres:5432/abubadb?sslmode=disable
-  POSTGRES_URL: "cG9zdGdyZXM6Ly9hYnViYTphYnViYUBwb3N0Z3Jlczo1NDMyL2FidWJhZGI/c3NsbW9kZT1kaXNhYmxl"
-
-  # exist due to inconsistency in variable names
-  POSTGRES_USERNAME: "YWJ1YmE=" # "cG9zdGdyZXM="
-
-  # TODO add lifecycle from deployment and remove from template (?)
+  # postgres://abuba:abuba@postgres:5432/user?sslmode=disable
+  POSTGRES_URL: "cG9zdGdyZXM6Ly9hYnViYTphYnViYUBwb3N0Z3Jlczo1NDMyL3VzZXI/c3NsbW9kZT1kaXNhYmxl"
