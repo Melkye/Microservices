@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders-postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orders-postgres
+  template:
+    metadata:
+      labels:
+        app: orders-postgres
+    spec:
+      containers:
+        - name: orders-postgres-container
+          image: postgres:14.1-alpine3.15
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: orders-postgres-config
+            - secretRef:
+                name: orders-postgres-secret
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: orders-postgres-db
+      volumes:
+        - name: orders-postgres-db
+          persistentVolumeClaim:
+            claimName: orders-postgres-volume-claim

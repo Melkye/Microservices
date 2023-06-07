@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orders
+  template:
+    metadata:
+      labels:
+        app: orders
+    spec:
+      initContainers:
+        - name: orders-migrations-container
+          image: yezhyck/orders-migrations-image:1.0
+          imagePullPolicy: "Always"
+          command: [ "flyway", "migrate" , "-url=jdbc:postgresql://$(POSTGRES_HOST):$(POSTGRES_PORT)/$(POSTGRES_DB)", "-user=$(POSTGRES_USER)", "-password=$(POSTGRES_PASSWORD)" ]
+          envFrom:
+            - configMapRef:
+                name: orders-config
+            - secretRef:
+                name: orders-secret
+      containers:
+        - name: orders-container
+          image: yezhyck/orders-image:2.0
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 3001
+          envFrom:
+            - configMapRef:
+                name: orders-config
+            - secretRef:
+                name: orders-secret
