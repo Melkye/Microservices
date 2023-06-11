@@ -3,9 +3,9 @@ postgresql:
   global:
     postgresql:
       auth:
-        postgresPassword: "admin"
-        username: "abuba"
-        password: "abuba"
+        postgresPassword: "postgres"
+        # username: "abuba"
+        # password: "abuba"
       service:
         ports:
           postgresql: "5432"

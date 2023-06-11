@@ -30,8 +30,12 @@ configs:
   POSTGRES_PORT: "5432"
 
 secrets:
+  # TODO move to common
+  # postgres:postgres
   POSTGRES_USER: "cG9zdGdyZXM="
-  POSTGRES_PASSWORD: "YWRtaW4="  
-  
+  POSTGRES_PASSWORD: "cG9zdGdyZXM="
+
+  # doesn't work
+  # # abuba:abuba
   # POSTGRES_USER: "YWJ1YmE="
   # POSTGRES_PASSWORD: "YWJ1YmE="

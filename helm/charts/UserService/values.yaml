@@ -1,0 +1,49 @@
+selector:
+  app: users # TODO make this work as in example (?)
+
+namespace: bookshop
+
+image:
+  name: ashonuyak/microservices-user
+  tag: latest
+
+lifecycle:
+  postStart:
+    exec:
+      command: ["npm", "run", "typeorm", "--", "migration:run"]
+
+service:
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 3001
+
+ingress:
+  path: /user
+  port: 8080
+
+configs:
+  POSTGRES_TYPE: "postgres"
+  POSTGRES_HOST: "postgres-db"
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "user"
+
+secrets:
+  # TODO move to common
+  # postgres:postgres
+  POSTGRES_USER: "cG9zdGdyZXM="
+  POSTGRES_PASSWORD: "cG9zdGdyZXM="
+
+  # postgres://postgres:postgres@postgres-db:5432/user?sslmode=disable
+  POSTGRES_URL: "cG9zdGdyZXM6Ly9wb3N0Z3Jlczpwb3N0Z3Jlc0Bwb3N0Z3Jlcy1kYjo1NDMyL3VzZXI/c3NsbW9kZT1kaXNhYmxl"
+
+  # doesn't work
+  # # abuba:abuba
+  # POSTGRES_USER: "YWJ1YmE="
+  # POSTGRES_PASSWORD: "YWJ1YmE="
+
+  # # postgres://abuba:abuba@postgres-db:5432/user?sslmode=disable
+  # POSTGRES_URL: "cG9zdGdyZXM6Ly9hYnViYTphYnViYUBwb3N0Z3Jlcy1kYjo1NDMyL3VzZXI/c3NsbW9kZT1kaXNhYmxl"
+  
+
+  
