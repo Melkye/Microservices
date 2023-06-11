@@ -1,27 +1,38 @@
-import { JwtService } from '@nestjs/jwt';
 import {
   BadRequestException,
   Injectable,
   UnauthorizedException,
+  Logger,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 
+import KafkaService from './auth.kafka';
 import SignUpDto from './dto/sign-up.dto';
 import AuthRepository from './auth.repository';
-import UserService from 'src/user/user.service';
 import Tokens from './interfaces/tokens.interface';
 import BcryptService from 'src/bcrypt/bcrypt.service';
-import User from 'src/user/entities/user.entity';
+import Credentials from '../credentials/entities/credentials.entity';
+import CredentialsService from 'src/credentials/credentials.service';
 
 @Injectable()
 export default class AuthService {
   constructor(
     private readonly bcryptService: BcryptService,
-    private readonly userService: UserService,
     private readonly authRepository: AuthRepository,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
-  ) {}
+    private readonly httpService: HttpService,
+    private readonly credentialsService: CredentialsService,
+    private readonly kafkaService: KafkaService,
+  ) {
+    this.kafkaService.subscribe('email.failed', (message) => {
+      if (['user_deleted', 'user_created'].includes(message.type)) {
+        Logger.error(`Error sending email to ${message.payload}`);
+      }
+    });
+  }
 
   getAccessToken(sub: string): string {
     return this.jwtService.sign(
@@ -49,7 +60,7 @@ export default class AuthService {
 
   async verifyAccessToken(token: string): Promise<{ sub: string }> {
     return this.jwtService.verify(token, {
-      secret: this.configService.get('JWT_SECRET'),
+      secret: this.configService.get('JWT_SECRET_ACCESS'),
     });
   }
 
@@ -66,26 +77,31 @@ export default class AuthService {
     return { accessToken, refreshToken };
   }
 
-  async validateUser(email: string, password: string): Promise<User> {
-    const user = await this.userService.getOne({ email });
+  async validateCredentials(
+    email: string,
+    password: string,
+  ): Promise<Credentials> {
+    const credentials = await this.credentialsService.getOne({ email });
 
-    if (!user) throw new BadRequestException();
+    if (!credentials) throw new BadRequestException();
 
     const isValidPassword = await this.bcryptService.compare(
       password,
-      user.password,
+      credentials.password,
     );
     if (!isValidPassword) throw new BadRequestException();
 
-    return user;
+    return credentials;
   }
 
   async signUp(dto: SignUpDto): Promise<Tokens> {
     const passwordHash = await this.bcryptService.hash(dto.password);
 
-    const { id } = await this.userService.create({
-      ...dto,
-      password: passwordHash,
+    const { id } = await this.createUser({ ...dto, password: passwordHash });
+
+    this.kafkaService.send('email.send', {
+      type: 'user_created',
+      payload: dto.email,
     });
 
     const tokens = await this.getTokens(id);
@@ -95,10 +111,40 @@ export default class AuthService {
     return tokens;
   }
 
-  async signIn(user: User): Promise<Tokens> {
-    const tokens = await this.getTokens(user.id);
+  async createUser({ password, ...dto }: SignUpDto) {
+    try {
+      const response = await this.httpService
+        .post(
+          `http://${this.configService.get(
+            'USER_SERVICE_SERVICE_HOST',
+          )}:${this.configService.get('USER_SERVICE_SERVICE_PORT')}/user`,
+          { ...dto },
+        )
+        .toPromise();
 
-    await this.authRepository.saveToken(user.id, tokens.refreshToken);
+      await this.credentialsService.create(
+        new Credentials({ ...dto, password, userId: response.data.id }),
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw new BadRequestException();
+    }
+  }
+
+  async signIn(credentials: Credentials): Promise<Tokens> {
+    const tokens = await this.getTokens(credentials.userId);
+
+    this.kafkaService.send('email.send', {
+      type: 'user_created',
+      payload: credentials.email,
+    });
+
+    await this.authRepository.saveToken(
+      credentials.userId,
+      tokens.refreshToken,
+    );
 
     return tokens;
   }
@@ -125,5 +171,19 @@ export default class AuthService {
 
   async getTokenByKey(key: string): Promise<string | null> {
     return this.authRepository.getToken(key);
+  }
+
+  async validateAccessToken(token: string): Promise<boolean> {
+    try {
+      await this.verifyAccessToken(token);
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async deleteCredentials(email: string): Promise<Credentials> {
+    return this.credentialsService.deleteOne({ email });
   }
 }
