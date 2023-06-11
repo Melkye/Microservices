@@ -25,13 +25,23 @@ spec:
       {{- if .Values.migrations }}
       initContainers:
         - name: {{ .Values.migrations.image.name }}
-          image: {{ .Values.migrations.image.name }}:{{ .Values.migrations.image.tag }}
-          command: [ "migrate", "-path", "/migrations", "-database",  "$(POSTGRESQL_URL)", "goto", "$(VERSION)" ]
-          env:
-            - name: POSTGRESQL_URL
-              value: {{ .Values.migrations.config.POSTGRESQL_URL | quote }}
-            - name: VERSION
-              value: {{ .Values.migrations.config.VERSION | quote }}
+          image: {{ .Values.migrations.image.repo }}/{{ .Values.migrations.image.name }}:{{ .Values.migrations.image.tag }}
+          imagePullPolicy: IfNotPresent
+          command: {{ .Values.migrations.command | toJson}}
+          #command: [ "migrate", "-path", "/migrations", "-database",  "$(POSTGRESQL_URL)", "goto", "$(VERSION)" ]
+          {{- if or (.Values.configs) (.Values.secrets) }}
+          envFrom:
+            {{- if .Values.configs }}
+            - configMapRef:
+                #optional: true
+                name: {{ include "common.fullname" $ }}-config
+            {{- end }}
+            {{- if .Values.secrets }}
+            - secretRef:
+                #optional: true
+                name: {{ include "common.fullname" $ }}-secret
+            {{- end }}
+          {{- end }}
       {{- end }}
       containers:
         - name: {{ include "common.fullname" . }}

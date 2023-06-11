@@ -1,0 +1,17 @@
+---
+# Source: bookshop/charts/postgresql/templates/primary/initialization-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-db-init-scripts-00
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: postgresql
+    helm.sh/chart: postgresql-12.5.4
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/managed-by: Helm
+data:
+  init.sql: |
+    CREATE DATABASE "auth" OWNER abuba;
+    CREATE DATABASE "books" OWNER abuba;
+    CREATE DATABASE "user" OWNER abuba;

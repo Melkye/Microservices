@@ -11,20 +11,14 @@ postgresql:
           postgresql: "5432"
   primary:
     persistence:
-      size: 2Gi
-      mountPath: /var/lib/postgresql/data
-    # TODO make dbs creation work
+      size: 1Gi
     initdb:
       scripts:
-        init.sql: |
-          CREATE DATABASE "auth" OWNER abuba;
-          CREATE DATABASE "books" OWNER abuba;
-          CREATE DATABASE "user" OWNER abuba;
+        init.sql: "CREATE DATABASE \"auth\";CREATE DATABASE \"books\";CREATE DATABASE \"user\";"
   audit:
     logConnections: true
   
 redis:
-  #password: "abuba" try this in case auth.pass doesn't work
   auth:
     password: "redis"
   master:

@@ -4,7 +4,8 @@ selector:
 namespace: bookshop
 
 image:
-  name: ashonuyak/microservices-auth
+  name: melkye/microservices-auth
+  # name: ashonuyak/microservices-auth
   tag: latest
 
 lifecycle:
@@ -28,15 +29,19 @@ configs:
   POSTGRES_PORT: "5432"
   POSTGRES_DB: "auth"
 
-  REDIS_HOST: "redis-auth"
+  REDIS_HOST: "bookshop-redis-master"
+  # REDIS_HOST: "redis-auth"
   REDIS_PORT: "6379"
   
   #REDIS_DB: redis-auth # TODO need redis db or not??
 
 secrets:
   # shared
-  POSTGRES_USER: "YWJ1YmE=" # "cG9zdGdyZXM="
-  POSTGRES_PASSWORD: "YWJ1YmE=" # "cG9zdGdyZXM="
+  POSTGRES_USER: "cG9zdGdyZXM="
+  POSTGRES_PASSWORD: "YWRtaW4="  
+  
+  # POSTGRES_USER: "YWJ1YmE="
+  # POSTGRES_PASSWORD: "YWJ1YmE="
   
   # auth
   # postgres://abuba:abuba@postgres-db:5432/auth?sslmode=disable
@@ -44,5 +49,8 @@ secrets:
 
   REDIS_USERNAME: "cmVkaXM="
   REDIS_PASSWORD: "cmVkaXM="
-  # redis://redis-auth:6379
-  REDIS_URL: "cmVkaXM6Ly9yZWRpcy1hdXRoOjYzNzk="
+
+  # # redis://redis-auth:6379
+  # REDIS_URL: "cmVkaXM6Ly9yZWRpcy1hdXRoOjYzNzk="
+  # redis://bookshop-redis-master:6379
+  REDIS_URL: "cmVkaXM6Ly9ib29rc2hvcC1yZWRpcy1tYXN0ZXI6NjM3OQ=="
