@@ -14,7 +14,7 @@ postgresql:
       size: 1Gi
     initdb:
       scripts:
-        init.sql: "CREATE DATABASE \"auth\";CREATE DATABASE \"books\";CREATE DATABASE \"user\";"
+        init.sql: "CREATE DATABASE \"auth\";CREATE DATABASE \"books\";CREATE DATABASE \"user\";CREATE DATABASE \"orders\";"
   audit:
     logConnections: true
   
