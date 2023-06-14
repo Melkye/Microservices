@@ -4,7 +4,7 @@ selector:
 namespace: bookshop
 
 image:
-  name: ashonuyak/microservices-user
+  name: melkye/microservices-user #ashonuyak/microservices-user
   tag: latest
 
 lifecycle:
