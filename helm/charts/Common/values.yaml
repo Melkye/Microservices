@@ -2,19 +2,19 @@ replicaCount: 1
 # TODO: add here configs and secrets
 nameOverride: ""
 
-image:
-  name: ""
-  tag: ""
+# image:
+#   name: ""
+#   tag: ""
 
-service:
-  ports: []
+# service:
+#   ports: []
 
-ingress:
-  path: /
-  port: http
+# ingress:
+#   path: /
+#   port: http
 
-configs: {}
+# configs: {}
 
-secrets: {}
+# secrets: {}
 
-common: {}
+# common: {}
