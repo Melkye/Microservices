@@ -116,8 +116,8 @@ export default class AuthService {
       const response = await this.httpService
         .post(
           `http://${this.configService.get(
-            'USER_SERVICE_SERVICE_HOST',
-          )}:${this.configService.get('USER_SERVICE_SERVICE_PORT')}/user`,
+            'BOOKSHOP_USER_SERVICE_HOST',
+          )}:${this.configService.get('BOOKSHOP_USER_SERVICE_PORT')}/user`,
           { ...dto },
         )
         .toPromise();

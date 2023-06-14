@@ -45,9 +45,9 @@ export default class UserService {
       await this.httpService
         .delete(
           `http://${this.configService.get(
-            'AUTH_SERVICE_SERVICE_HOST',
+            'BOOKSHOP_AUTH_SERVICE_HOST',
           )}:${this.configService.get(
-            'AUTH_SERVICE_SERVICE_PORT',
+            'BOOKSHOP_AUTH_SERVICE_PORT',
           )}/auth/${email}`,
         )
         .toPromise();
