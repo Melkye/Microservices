@@ -24,8 +24,8 @@ import { DatabaseConfig } from './config/database.config';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         config: {
-          host: config.get('REDIS_PORT'),
-          port: config.get('REDIS_PORT'),
+          host: config.get('REDIS_AUTH_MASTER_SERVICE_HOST'),
+          port: config.get('REDIS_AUTH_MASTER_SERVICE_PORT'),
         },
       }),
     }),

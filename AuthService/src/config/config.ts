@@ -57,12 +57,12 @@ export const config = () => ({
     host: {
       format: String,
       default: 'redis-auth',
-      env: 'REDIS_HOST',
+      env: 'REDIS_AUTH_MASTER_SERVICE_HOST',
     },
     port: {
       format: Number,
       default: 6379,
-      env: 'REDIS_PORT',
+      env: 'REDIS_AUTH_MASTER_SERVICE_PORT',
     },
     username: {
       format: String,
