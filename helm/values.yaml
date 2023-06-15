@@ -19,19 +19,21 @@ postgresql:
     logConnections: true
   
 redis:
+  fullnameOverride: "redis-auth"
+  architecture: "standalone" # for not creatins replicas
   auth:
     password: "redis"
   master:
     persistence:
-      size: 2Gi
+      size: 1Gi
       path: /data
     service:
       ports:
         redis: "6379"
-  replica:
-    replicaCount: 1
-    persistence:
-      size: 2Gi
+  # replica:
+  #   replicaCount: 1
+  #   persistence:
+  #     size: 1Gi
   # TODO set count to 1 to reduce resource util, maybe need more replicas
   # TODO remove namespace
 
@@ -44,4 +46,4 @@ kafka:
     topics:
      - name: demo
   persistence:
-    size: 2Gi
+    size: 1Gi
