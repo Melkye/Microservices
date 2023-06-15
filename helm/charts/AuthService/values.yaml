@@ -29,7 +29,8 @@ configs:
   POSTGRES_PORT: "5432"
   POSTGRES_DB: "auth"
 
-  REDIS_HOST: "bookshop-redis-master"
+  # TODO do smth with bookshop in var names (and values)
+  REDIS_HOST: "redis-auth-master"
   # REDIS_HOST: "redis-auth"
   REDIS_PORT: "6379"
   
@@ -41,8 +42,8 @@ secrets:
   POSTGRES_USER: "cG9zdGdyZXM="
   POSTGRES_PASSWORD: "cG9zdGdyZXM="
 
-  # postgres://postgres:postgres@postgres-db:5432/user?sslmode=disable
-  POSTGRES_URL: "cG9zdGdyZXM6Ly9wb3N0Z3Jlczpwb3N0Z3Jlc0Bwb3N0Z3Jlcy1kYjo1NDMyL3VzZXI/c3NsbW9kZT1kaXNhYmxl"
+  # postgres://postgres:postgres@postgres-db:5432/auth?sslmode=disable
+  POSTGRES_URL: "cG9zdGdyZXM6Ly9wb3N0Z3Jlczpwb3N0Z3Jlc0Bwb3N0Z3Jlcy1kYjo1NDMyL2F1dGg/c3NsbW9kZT1kaXNhYmxl"
 
   # doesn't work
   # # abuba:abuba
@@ -58,8 +59,8 @@ secrets:
 
   # # redis://redis-auth:6379
   # REDIS_URL: "cmVkaXM6Ly9yZWRpcy1hdXRoOjYzNzk="
-  # redis://bookshop-redis-master:6379
-  REDIS_URL: "cmVkaXM6Ly9ib29rc2hvcC1yZWRpcy1tYXN0ZXI6NjM3OQ=="
+  # redis://redis@redis-auth-master:6379
+  REDIS_URL: "cmVkaXM6Ly9yZWRpc0ByZWRpcy1hdXRoLW1hc3Rlcjo2Mzc5"
   
   JWT_SECRET_ACCESS: "YWNjZXNzYWNjZXNzYWxv"
   JWT_SECRET_REFRESH: "cmVmcmVzaHJlZnJlc2hhbGFsbw=="

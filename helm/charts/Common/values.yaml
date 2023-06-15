@@ -13,6 +13,20 @@ nameOverride: ""
 #   path: /
 #   port: http
 
+ingresses:
+  - path: /auth
+    port: 8080
+    serviceName: auth
+  - path: /books
+    port: 8080
+    serviceName: books
+  - path: /orders
+    port: 80
+    serviceName: orders
+  - path: /user
+    port: 8080
+    serviceName: user
+
 # configs: {}
 
 # secrets: {}
