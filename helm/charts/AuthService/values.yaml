@@ -59,8 +59,10 @@ secrets:
 
   # # redis://redis-auth:6379
   # REDIS_URL: "cmVkaXM6Ly9yZWRpcy1hdXRoOjYzNzk="
-  # redis://redis@redis-auth-master:6379
-  REDIS_URL: "cmVkaXM6Ly9yZWRpc0ByZWRpcy1hdXRoLW1hc3Rlcjo2Mzc5"
+  # # redis://redis@redis-auth-master:6379
+  # REDIS_URL: "cmVkaXM6Ly9yZWRpc0ByZWRpcy1hdXRoLW1hc3Rlcjo2Mzc5"
+  # redis://redis:redis@redis-auth-master:6379
+  REDIS_URL: "cmVkaXM6Ly9yZWRpczpyZWRpc0ByZWRpcy1hdXRoLW1hc3Rlcjo2Mzc5"
   
   JWT_SECRET_ACCESS: "YWNjZXNzYWNjZXNzYWxv"
   JWT_SECRET_REFRESH: "cmVmcmVzaHJlZnJlc2hhbGFsbw=="
