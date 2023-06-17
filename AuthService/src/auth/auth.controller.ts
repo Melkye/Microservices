@@ -55,8 +55,8 @@ export default class AuthController {
     return this.authService.deleteCredentials(email);
   }
 
-  @Get('ping')
+  @Get('healthz')
   ping(): string {
-    return 'Hey boy';
+    return 'Health OK';
   }
 }

@@ -49,4 +49,9 @@ export default class UserController {
   async delete(@Param('id') id: string): Promise<User> {
     return this.userService.deleteOne({ id });
   }
+
+  @Get('healthz')
+  ping(): string {
+    return 'Health OK';
+  }
 }
