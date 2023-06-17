@@ -12,3 +12,11 @@ service:
     - name: http
       port: 8080
       targetPort: 3002
+
+
+configs:  
+  EMAIL_FROM: no-reply@gmail.com
+
+secrets:
+  MAILGUN_API_KEY: ZGRkYTI1OWE1NTQxNWI5MzllMzg4Y2UxN2VlNjRmMjItZGI0ZGY0NDktYWFhNjljOGY=
+  MAILGUN_DOMAIN: c2FuZGJveGVkOGE4MWNmMDQ5NjQ5ODc4NTllZjIxNDkyOTcwNmM5Lm1haWxndW4ub3Jn
