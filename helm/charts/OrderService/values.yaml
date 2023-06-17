@@ -25,9 +25,9 @@ service:
       port: 80
       targetPort: 3001 
 
-ingress:
-  path: /orders
-  port: 80
+# ingress:
+#   path: /orders
+#   port: 80
 
 configs:
   POSTGRES_DB: "orders"

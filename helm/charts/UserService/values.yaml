@@ -4,7 +4,7 @@ selector:
 namespace: bookshop
 
 image:
-  name: melkye/microservices-user #ashonuyak/microservices-user
+  name: melkye/microservices-user2 #ashonuyak/microservices-user
   tag: latest
 
 lifecycle:
@@ -14,7 +14,7 @@ lifecycle:
 
 backendconfig:
   healthcheck:
-    path: /user/healthz # TODO make probe work without auth
+    path: /user/healthzzzz
     port: 3001 # 80
 
 service:

@@ -24,6 +24,11 @@ export default class UserController {
     return this.userService.getAll();
   }
 
+  @Get('healthzzzz')
+  ping(): string {
+    return 'Health OK';
+  }
+
   @UseGuards(AuthGuard)
   @Get(':id')
   async getById(@Param('id') id: string): Promise<User | null> {
@@ -48,10 +53,5 @@ export default class UserController {
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<User> {
     return this.userService.deleteOne({ id });
-  }
-
-  @Get('healthz')
-  ping(): string {
-    return 'Health OK';
   }
 }
