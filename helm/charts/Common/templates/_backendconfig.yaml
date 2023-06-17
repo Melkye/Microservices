@@ -1,0 +1,23 @@
+{{- define "common.backendconfig" -}}
+
+{{- $common := dict "Values" .Values.common -}} # Values з common Chart
+{{- $noCommon := omit .Values "common" -}} # Values з основного Chart
+{{- $overrides := dict "Values" $noCommon -}} # записуємо common Values в змінну Values
+{{- $noValues := omit . "Values" -}} # містить усе крім Values, зокрема Chart, Release
+{{- with merge $noValues $overrides $common -}}
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: {{ include "common.fullname" . }}
+spec:
+  healthCheck:
+    checkIntervalSec: 10
+    timeoutSec: 10
+    # healthyThreshold: HEALTH_THRESHOLD
+    # unhealthyThreshold: UNHEALTHY_THRESHOLD
+    type: HTTP
+    requestPath: {{ .Values.backendconfig.healthcheck.path }}
+    port: {{ .Values.backendconfig.healthcheck.port }}
+{{ end }}
+{{- end -}}

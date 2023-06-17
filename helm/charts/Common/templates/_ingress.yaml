@@ -26,7 +26,7 @@ spec:
               service:
                 name: {{ $.Release.Name }}-{{ .serviceName }} # maybe need point enstead of $
                 port:
-                  number: {{ .port }}
+                  number: {{ .servicePort }}
           {{- end }}
 {{- end -}}
 {{- end -}}

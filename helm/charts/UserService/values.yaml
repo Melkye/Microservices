@@ -12,6 +12,11 @@ lifecycle:
     exec:
       command: ["npm", "run", "typeorm", "--", "migration:run"]
 
+backendconfig:
+  healthcheck:
+    path: /user/all # TODO make probe work without auth
+    port: 80
+
 service:
   ports:
     - name: http

@@ -8,6 +8,11 @@ image:
   # name: ashonuyak/microservices-auth
   tag: latest
 
+backendconfig:
+  healthcheck:
+    path: /auth/ping
+    port: 80
+
 lifecycle:
   postStart:
     exec:
@@ -19,9 +24,9 @@ service:
       port: 8080
       targetPort: 3000 
 
-ingress:
-  path: /auth
-  port: 8080
+# ingress:
+#   path: /auth
+#   port: 8080
 
 configs:
   POSTGRES_TYPE: "postgres"

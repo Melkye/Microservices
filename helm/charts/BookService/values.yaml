@@ -7,6 +7,14 @@ image:
   name: melkye/books-image
   tag: "2.1"
 
+backendconfig:
+  healthcheck:
+    path: /books
+    port: 80
+
+backendConfig:
+  name: 
+
 service:
   ports:
     - name: http

@@ -12,6 +12,9 @@ metadata:
   name: {{ include "common.fullname" . }}
   labels:
     {{- include "common.selectorLabels" . | nindent 4 }}
+  annotations:
+    cloud.google.com/backend-config: '{"default": "{{ include "common.fullname" . }}"}'
+    # 'maybe neen to cnange to .Values.backendConfig.name
 spec:
   type: ClusterIP
   ports:

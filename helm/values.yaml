@@ -22,6 +22,7 @@ redis:
   fullnameOverride: "redis-auth"
   architecture: "standalone" # for not creatins replicas
   auth:
+    enabled: false
     password: "redis"
   master:
     persistence:
@@ -44,6 +45,12 @@ kafka:
   provisioning:
     enabled: true               # при запуску будуть створені перелічені топіки
     topics:
-     - name: demo
+      - name: email.send
+        partitions: 3
+        # bootstrap-server: abuba
+      - name: email.failed
+        partitions: 3
+        # bootstrap-server: $KAFKA_SERVICE_HOST:$KAFKA_SERVICE_PORT
   persistence:
     size: 1Gi
+  #KAFKA_SERVICE: $KAFKA_SERVICE_HOST:$KAFKA_SERVICE_PORT
