@@ -32,6 +32,11 @@ public class OrderController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/healthz")
+    public @ResponseBody ResponseEntity<OrderDto> checkHealth() {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping
     public @ResponseBody ResponseEntity<List<OrderDto>> readAllByUserUUID(@RequestParam("userUUID") UUID userUUID) {
         return new ResponseEntity<>(orderService.getAllByUserUUID(userUUID), HttpStatus.OK);
