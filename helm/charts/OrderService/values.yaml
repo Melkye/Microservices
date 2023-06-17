@@ -4,7 +4,7 @@ selector:
 namespace: bookshop
 
 image:
-  name: melkye/orders-image #yezhyck/orders-image
+  name: yezhyck/orders-image
   tag: "2.0"
 
 migrations:
@@ -17,7 +17,7 @@ migrations:
 backendconfig:
   healthcheck:
     path: /orders/healthz # TODO check if it works
-    port: 80
+    port: 3001 # 80
 
 service:
   ports:

@@ -4,7 +4,7 @@ selector:
 namespace: bookshop
 
 image:
-  name: ashonuyak/microservices-email
+  name: melkye/microservices-email # ashonuyak/microservices-email
   tag: latest
 
 service:

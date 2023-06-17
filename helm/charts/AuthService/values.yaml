@@ -4,19 +4,18 @@ selector:
 namespace: bookshop
 
 image:
-  name: melkye/microservices-auth
-  # name: ashonuyak/microservices-auth
+  name: melkye/microservices-auth #ashonuyak/microservices-auth
   tag: latest
-
-backendconfig:
-  healthcheck:
-    path: /auth/ping
-    port: 80
 
 lifecycle:
   postStart:
     exec:
       command: ["npm", "run", "typeorm", "--", "migration:run"]
+
+backendconfig:
+  healthcheck:
+    path: /auth/healthz
+    port: 3000 #80
 
 service:
   ports:

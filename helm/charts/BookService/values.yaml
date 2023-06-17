@@ -12,9 +12,6 @@ backendconfig:
     path: /books
     port: 80
 
-backendConfig:
-  name: 
-
 service:
   ports:
     - name: http

@@ -1,5 +1,5 @@
 selector:
-  app: users # TODO make this work as in example (?)
+  app: user # TODO make this work as in example (?)
 
 namespace: bookshop
 
@@ -14,8 +14,8 @@ lifecycle:
 
 backendconfig:
   healthcheck:
-    path: /user/all # TODO make probe work without auth
-    port: 80
+    path: /user/healthz # TODO make probe work without auth
+    port: 3001 # 80
 
 service:
   ports:
@@ -23,9 +23,9 @@ service:
       port: 8080
       targetPort: 3001
 
-ingress:
-  path: /user
-  port: 8080
+# ingress:
+#   path: /user
+#   port: 8080
 
 configs:
   POSTGRES_TYPE: "postgres"
