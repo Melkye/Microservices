@@ -42,6 +42,11 @@ public class OrderController {
         return new ResponseEntity<>(orderService.getAllByUserUUID(userUUID), HttpStatus.OK);
     }
 
+    @GetMapping("/healthz")
+    public @ResponseBody ResponseEntity<?> checkHealth() {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     public @ResponseBody ResponseEntity<OrderDto> updateById(@PathVariable("id") Long id, @RequestBody OrderDto orderDto) {
         return Boolean.TRUE.equals(orderService.isExistedById(id)) ?
