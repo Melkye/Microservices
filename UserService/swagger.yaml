@@ -1,0 +1,101 @@
+openapi: 3.0.0
+paths:
+  /user/all:
+    get:
+      operationId: UserController_getAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: &ref_0
+        - user
+      security:
+        - bearer: []
+  /user/{id}:
+    get:
+      operationId: UserController_getById
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags: *ref_0
+      security:
+        - bearer: []
+    patch:
+      operationId: UserController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserDto'
+      responses:
+        '200':
+          description: ''
+      tags: *ref_0
+      security:
+        - bearer: []
+    delete:
+      operationId: UserController_delete
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags: *ref_0
+      security:
+        - bearer: []
+  /user:
+    post:
+      operationId: UserController_create
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags: *ref_0
+info:
+  title: User service
+  description: The user service's API
+  version: '1.0'
+  contact: {}
+tags: []
+servers: []
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      in: header
+      type: http
+  schemas:
+    UpdateUserDto:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        age:
+          type: number
+      required:
+        - firstName
+        - lastName
+        - email
+        - age

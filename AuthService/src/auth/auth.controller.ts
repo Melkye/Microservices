@@ -16,7 +16,10 @@ import LocalAuthGuard from 'src/guards/local-auth.guard';
 import JwtAccessGuard from 'src/guards/jwt-access.guard';
 import AuthUser from 'src/decorators/auth-user.decorator';
 import Credentials from '../credentials/entities/credentials.entity';
+import { ApiTags, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+import SignInDto from './dto/sign-in.dto';
 
+@ApiTags('auth')
 @Controller('auth')
 export default class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -26,18 +29,21 @@ export default class AuthController {
     return this.authService.signUp(dto);
   }
 
+  @ApiBody({ type: SignInDto })
   @UseGuards(LocalAuthGuard)
   @Post('sign-in')
   async signIn(@AuthUser() credentials: Credentials): Promise<Tokens> {
     return this.authService.signIn(credentials);
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAccessGuard)
   @Get('logout')
   async logOut(@AuthUser() credentials: Credentials): Promise<void> {
     await this.authService.logOut(credentials.userId);
   }
 
+  @ApiBearerAuth()
   @Get('refresh')
   async refresh(
     @Headers() headers: { authorization: string },
