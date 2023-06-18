@@ -1,0 +1,23 @@
+selector:
+  app: swagger # TODO make this work as in example (?)
+
+namespace: bookshop
+
+image:
+  name: melkye/microservices-swagger #ashonuyak/microservices-swagger
+  tag: latest
+
+backendconfig:
+  healthcheck:
+    path: /api-docs/auth/healthz # TODO define for swagger
+    port: 3003
+
+service:
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 3003
+
+# ingress:
+#   path: /swagger # TODO define for swagger
+#   port: 8080

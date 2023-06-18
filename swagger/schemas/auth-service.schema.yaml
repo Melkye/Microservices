@@ -75,7 +75,7 @@ paths:
           description: ''
       tags:
         - auth
-  /auth/ping:
+  /auth/healthz:
     get:
       operationId: AuthController_ping
       parameters: []

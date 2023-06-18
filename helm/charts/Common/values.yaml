@@ -26,6 +26,9 @@ ingresses:
   - path: /user
     servicePort: 8080
     serviceName: user
+  - path: /api-docs
+    servicePort: 8080
+    serviceName: swagger
 
 # configs: {}
 
