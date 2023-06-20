@@ -1,10 +1,8 @@
 selector:
-  app: email # TODO make this work as in example (?)
-
-namespace: bookshop
+  app: email
 
 image:
-  name: melkye/microservices-email # ashonuyak/microservices-email
+  name: melkye/microservices-email
   tag: latest
 
 service:

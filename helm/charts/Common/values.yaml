@@ -2,17 +2,6 @@ replicaCount: 1
 # TODO: add here configs and secrets
 nameOverride: ""
 
-# image:
-#   name: ""
-#   tag: ""
-
-# service:
-#   ports: []
-
-# ingress:
-#   path: /
-#   port: http
-
 ingresses:
   - path: /auth
     servicePort: 8080

@@ -4,8 +4,6 @@ postgresql:
     postgresql:
       auth:
         postgresPassword: "postgres"
-        # username: "abuba"
-        # password: "abuba"
       service:
         ports:
           postgresql: "5432"
@@ -20,7 +18,7 @@ postgresql:
   
 redis:
   fullnameOverride: "redis-auth"
-  architecture: "standalone" # for not creatins replicas
+  architecture: "standalone" # for not creating replicas
   auth:
     enabled: false
     password: "redis"
@@ -31,26 +29,17 @@ redis:
     service:
       ports:
         redis: "6379"
-  # replica:
-  #   replicaCount: 1
-  #   persistence:
-  #     size: 1Gi
-  # TODO set count to 1 to reduce resource util, maybe need more replicas
-  # TODO remove namespace
 
 kafka:
-  fullnameOverride: kafka       # ім'я сервісу (хост по якому можна звертатись до брокера)
-  numPartitions: 3              # кількість розділів визначає скільки консьюмерів може бути в топіка одночасно  
-  autoCreateTopicsEnable: false # заборонити автоматичне створення топіків, вони мають визначатись явно, в списку нижче
+  fullnameOverride: kafka
+  numPartitions: 3
+  autoCreateTopicsEnable: false 
   provisioning:
-    enabled: true               # при запуску будуть створені перелічені топіки
+    enabled: true
     topics:
       - name: email.send
         partitions: 3
-        # bootstrap-server: abuba
       - name: email.failed
         partitions: 3
-        # bootstrap-server: $KAFKA_SERVICE_HOST:$KAFKA_SERVICE_PORT
   persistence:
     size: 1Gi
-  #KAFKA_SERVICE: $KAFKA_SERVICE_HOST:$KAFKA_SERVICE_PORT

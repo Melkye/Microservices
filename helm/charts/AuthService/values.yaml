@@ -1,10 +1,8 @@
 selector:
-  app: auth # TODO make this work as in example (?)
-
-namespace: bookshop
+  app: auth
 
 image:
-  name: melkye/microservices-auth #ashonuyak/microservices-auth
+  name: melkye/microservices-auth
   tag: latest
 
 lifecycle:
@@ -23,10 +21,6 @@ service:
       port: 8080
       targetPort: 3000 
 
-# ingress:
-#   path: /auth
-#   port: 8080
-
 configs:
   POSTGRES_TYPE: "postgres"
   POSTGRES_HOST: "postgres-db"
@@ -35,10 +29,7 @@ configs:
 
   # TODO do smth with bookshop in var names (and values)
   REDIS_HOST: "redis-auth-master"
-  # REDIS_HOST: "redis-auth"
   REDIS_PORT: "6379"
-  
-  #REDIS_DB: redis-auth # TODO need redis db or not??
 
 secrets:
   # TODO move to common
@@ -49,22 +40,9 @@ secrets:
   # postgres://postgres:postgres@postgres-db:5432/auth?sslmode=disable
   POSTGRES_URL: "cG9zdGdyZXM6Ly9wb3N0Z3Jlczpwb3N0Z3Jlc0Bwb3N0Z3Jlcy1kYjo1NDMyL2F1dGg/c3NsbW9kZT1kaXNhYmxl"
 
-  # doesn't work
-  # # abuba:abuba
-  # POSTGRES_USER: "YWJ1YmE="
-  # POSTGRES_PASSWORD: "YWJ1YmE="
-
-  # # postgres://abuba:abuba@postgres-db:5432/user?sslmode=disable
-  # POSTGRES_URL: "cG9zdGdyZXM6Ly9hYnViYTphYnViYUBwb3N0Z3Jlcy1kYjo1NDMyL3VzZXI/c3NsbW9kZT1kaXNhYmxl"
-
-
   REDIS_USERNAME: "cmVkaXM="
   REDIS_PASSWORD: "cmVkaXM="
 
-  # # redis://redis-auth:6379
-  # REDIS_URL: "cmVkaXM6Ly9yZWRpcy1hdXRoOjYzNzk="
-  # # redis://redis@redis-auth-master:6379
-  # REDIS_URL: "cmVkaXM6Ly9yZWRpc0ByZWRpcy1hdXRoLW1hc3Rlcjo2Mzc5"
   # redis://redis:redis@redis-auth-master:6379
   REDIS_URL: "cmVkaXM6Ly9yZWRpczpyZWRpc0ByZWRpcy1hdXRoLW1hc3Rlcjo2Mzc5"
   

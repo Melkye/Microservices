@@ -1,7 +1,5 @@
 selector:
-  app: books # TODO make this work as in example (?)
-
-namespace: bookshop
+  app: books
 
 image:
   name: melkye/microservices-books
@@ -18,10 +16,6 @@ service:
       port: 8080
       targetPort: 80 
 
-# ingress:
-#   path: /books
-#   port: 8080
-
 configs:
   POSTGRES_DB: "books"
   POSTGRES_HOST: "postgres-db"
@@ -32,8 +26,3 @@ secrets:
   # postgres:postgres
   POSTGRES_USER: "cG9zdGdyZXM="
   POSTGRES_PASSWORD: "cG9zdGdyZXM="
-
-  # doesn't work
-  # # abuba:abuba
-  # POSTGRES_USER: "YWJ1YmE="
-  # POSTGRES_PASSWORD: "YWJ1YmE="

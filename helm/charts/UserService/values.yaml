@@ -1,10 +1,8 @@
 selector:
-  app: user # TODO make this work as in example (?)
-
-namespace: bookshop
+  app: user
 
 image:
-  name: melkye/microservices-user2 #ashonuyak/microservices-user
+  name: melkye/microservices-user2
   tag: latest
 
 lifecycle:
@@ -15,17 +13,13 @@ lifecycle:
 backendconfig:
   healthcheck:
     path: /user/healthzzzz
-    port: 3001 # 80
+    port: 3001
 
 service:
   ports:
     - name: http
       port: 8080
       targetPort: 3001
-
-# ingress:
-#   path: /user
-#   port: 8080
 
 configs:
   POSTGRES_TYPE: "postgres"
@@ -41,14 +35,3 @@ secrets:
 
   # postgres://postgres:postgres@postgres-db:5432/user?sslmode=disable
   POSTGRES_URL: "cG9zdGdyZXM6Ly9wb3N0Z3Jlczpwb3N0Z3Jlc0Bwb3N0Z3Jlcy1kYjo1NDMyL3VzZXI/c3NsbW9kZT1kaXNhYmxl"
-
-  # doesn't work
-  # # abuba:abuba
-  # POSTGRES_USER: "YWJ1YmE="
-  # POSTGRES_PASSWORD: "YWJ1YmE="
-
-  # # postgres://abuba:abuba@postgres-db:5432/user?sslmode=disable
-  # POSTGRES_URL: "cG9zdGdyZXM6Ly9hYnViYTphYnViYUBwb3N0Z3Jlcy1kYjo1NDMyL3VzZXI/c3NsbW9kZT1kaXNhYmxl"
-  
-
-  
