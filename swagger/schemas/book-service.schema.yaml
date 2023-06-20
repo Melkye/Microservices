@@ -1,0 +1,123 @@
+openapi: 3.0.0
+paths:
+  /books:
+    get:
+      operationId: BooksController_getAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - books
+    post:
+      operationId: BooksController_post
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBookModel'
+      responses:
+        '200':
+          description: ''
+      tags:
+        - books
+  /books/{id}:
+    parameters:
+    - name: id
+      required: true
+      in: path
+      schema:
+        type: integer
+    get:
+      operationId: BooksController_getById
+      responses:
+        '200':
+          description: ''
+      tags:
+        - books
+    put:
+      operationId: BooksController_put
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBookModel'
+      responses:
+        '200':
+          description: ''
+      tags:
+        - books
+    delete:
+      operationId: BooksController_delete
+      responses:
+        '200':
+          description: ''
+      tags:
+        - books
+  /books/healthz:
+    get:
+      operationId: BooksController_healthz
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - books
+info:
+  title: Book service
+  description: The book service's API
+  version: '1.0'
+  contact: {}
+tags: ['books']
+servers: []
+components:
+  # TODO: add token validation
+  # securitySchemes:
+  #   bearer:
+  #     scheme: bearer
+  #     bearerFormat: JWT
+  #     in: header
+  #     type: http
+  schemas:
+    CreateBookModel:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        author:
+          type: string
+      required:
+        - title
+        - description
+        - author
+    GetBookModel:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        author:
+          type: string
+      required:
+        - title
+        - description
+        - author
+    UpdateBookModel:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        author:
+          type: string
+      required:
+        - title
+        - description
+        - author

@@ -14,6 +14,8 @@ const swaggerOptions = {
   },
   apis: [
     './schemas/auth-service.schema.yaml',
+    './schemas/book-service.schema.yaml',
+    './schemas/order-service.schema.yaml',
     './schemas/user-service.schema.yaml',
   ],
 };
@@ -23,5 +25,5 @@ const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(3003, () => {
-  console.log('Swagger server started on http://localhost:3000/api');
+  console.log('Swagger server started');
 });

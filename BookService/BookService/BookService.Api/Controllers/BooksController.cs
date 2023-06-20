@@ -34,6 +34,12 @@ public class BooksController : ControllerBase
         return Ok(books);
     }
 
+    [HttpGet("healthz")]
+    public IActionResult CheckHealth()
+    {
+        return Ok("Book service's health is OK");
+    }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetByIdAsync(int id)
     {

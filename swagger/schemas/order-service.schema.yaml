@@ -1,0 +1,108 @@
+openapi: 3.0.0
+paths:
+  /orders:
+    post:
+      operationId: OrderController_post
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+        - orders
+    get:
+      operationId: OrderController_getByUserUUID
+      parameters:
+        - name: userUUID
+          required: true
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - orders
+  /orders/{id}:
+    parameters:
+    - name: id
+      required: true
+      in: path
+      schema:
+        type: integer
+        format: int64
+    get:
+      operationId: OrderController_getById
+      responses:
+        '200':
+          description: ''
+        '404':
+          description: ''
+      tags:
+        - orders
+    put:
+      operationId: OrderController_put
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDto'
+      responses:
+        '200':
+          description: ''
+        '404':
+          description: ''
+      tags:
+        - orders
+    delete:
+      operationId: OrderController_delete
+      responses:
+        '204':
+          description: ''
+        '404':
+          description: ''
+      tags:
+        - orders
+  /orders/healthz:
+    get:
+      operationId: OrderController_healthz
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - orders    
+info:
+  title: Order service
+  description: The order service's API
+  version: '1.0'
+  contact: {}
+tags: ['orders']
+servers: []
+components:
+  # TODO: add token validation
+  # securitySchemes:
+  #   bearer:
+  #     scheme: bearer
+  #     bearerFormat: JWT
+  #     in: header
+  #     type: http
+  schemas:
+    OrderDto:
+      type: object
+      properties:
+        userUUID:
+          type: string
+          format: uuid
+        bookId:
+          type: integer
+          format: int64
+      required:
+        - userUUID
+        - bookId

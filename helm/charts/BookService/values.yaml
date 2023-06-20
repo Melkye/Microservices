@@ -4,12 +4,12 @@ selector:
 namespace: bookshop
 
 image:
-  name: melkye/books-image
-  tag: "2.1"
+  name: melkye/microservices-books
+  tag: "2.2"
 
 backendconfig:
   healthcheck:
-    path: /books
+    path: /books/healthz
     port: 80
 
 service:
@@ -18,9 +18,9 @@ service:
       port: 8080
       targetPort: 80 
 
-ingress:
-  path: /books
-  port: 8080
+# ingress:
+#   path: /books
+#   port: 8080
 
 configs:
   POSTGRES_DB: "books"

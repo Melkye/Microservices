@@ -77,7 +77,7 @@ paths:
         - auth
   /auth/healthz:
     get:
-      operationId: AuthController_ping
+      operationId: AuthController_healthz
       parameters: []
       responses:
         '200':
