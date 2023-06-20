@@ -63,7 +63,7 @@ paths:
         - user
       security:
         - bearer: []
-  /user/healthz:
+  /user/healthzzzz:
     get:
       operationId: UserController_healthz
       parameters: []

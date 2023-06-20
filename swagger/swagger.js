@@ -22,6 +22,10 @@ const swaggerOptions = {
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
+app.get('/api-docs/healthz', (req, res, next) => {
+  res.send('Swagger\'s health is OK')
+})
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(3003, () => {

@@ -9,7 +9,7 @@ image:
 
 backendconfig:
   healthcheck:
-    path: /api-docs/auth/healthz # TODO define for swagger
+    path: /api-docs/healthz # TODO define for swagger
     port: 3003
 
 service:
